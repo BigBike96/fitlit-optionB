@@ -1,5 +1,5 @@
 import './css/base.scss';
-import './css/style.scss';
+import './css/styles.scss';
 
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
