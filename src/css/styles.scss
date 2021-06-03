@@ -4,7 +4,6 @@
 
 body {
   font-family: 'Open Sans';
-  margin: 0;
   background-color: #4d4e4f;
   height: auto;
 }
@@ -16,27 +15,23 @@ h1 {
   padding-top: 10px;
 }
 
-.main {
+main {
   display: flex;
   flex-direction: row;
   height: 1500px;
 }
 
-.main-sidebar-body {
-  display: flex;
-  flex-direction: row;
-  width: 25%;
-  height: 100%;
-}
-
-.body-sidebar-sidebarContainer {
+.sidebar {
   background-color: #9A9DAB;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+  width: 25%;
+  height: 100%;
   align-items: center;
   text-align: center;
-  overflow: scroll;
+  overflow: wrap;
+  padding: 1%;
 }
 
 .sidebar-header-name {
@@ -48,7 +43,6 @@ h1 {
   font-weight: bold;
   font-size: 1.2em;
   margin: .5em .5em .5em .5em;
-  width: inherit;
 }
 
 .sidebar-header-line {
