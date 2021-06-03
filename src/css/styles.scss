@@ -22,16 +22,15 @@ main {
 }
 
 .sidebar {
+  align-items: center;
   background-color: #9A9DAB;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  width: 25%;
   height: 100%;
-  align-items: center;
-  text-align: center;
-  overflow: wrap;
   padding: 1%;
+  text-align: center;
+  width: 25%;
 }
 
 .sidebar-header-userInfo {
