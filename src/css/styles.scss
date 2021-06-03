@@ -31,13 +31,9 @@ main {
   padding: 1%;
   text-align: center;
   width: 25%;
-}
-
-.sidebar-header-userInfo {
   font-family: sans-serif;
   font-weight: bold;
   font-size: 1.2em;
-  margin: .5em .5em .5em .5em;
 }
 
 .sidebar-header-line {
@@ -224,14 +220,9 @@ main {
 
 .card-vertical-list {
   list-style-type: none;
-  font-weight: lighter;
-  font-style: italic;
-  padding-left: 0;
-  font-size: 1em;
-}
-
-.historical-list-listItem {
-  padding: .3em;
-  font-weight: bold;
+  font-weight: normal;
   font-family: sans-serif;
+  font-style: italic;
+  padding: 1em;
+  font-size: 1em;
 }
