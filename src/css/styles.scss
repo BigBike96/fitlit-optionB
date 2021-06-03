@@ -106,15 +106,23 @@ h1 {
   height: 35%
 }
 
-.infoContainer-cardContainer-card-horizontal {
+.info-card-container {
   width: 100%;
   background-color: white;
   border: 1px solid black;
   display: flex;
+  margin: 1%;
+}
+
+.horizontal-card {
   flex-direction: column;
   align-items: center;
-  margin: 1%;
   justify-content: space-between;
+}
+
+.vertical-card {
+  flex-direction: row;
+  overflow: scroll;
 }
 
 .horizontalCard-activity-container {
@@ -122,16 +130,6 @@ h1 {
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-  overflow: scroll;
-}
-
-.infoContainer-cardContainer-card-vertical {
-  width: 100%;
-  background-color: white;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
-  margin: 1%;
   overflow: scroll;
 }
 
