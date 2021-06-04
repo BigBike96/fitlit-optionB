@@ -1,7 +1,11 @@
-const averager = (array, key) => array.reduce((acc, data) => acc += data[key], 0) / array.length;
+export const averager = (array, key) => array.reduce((acc, data) => acc += data[key], 0) / array.length;
+export const finder = (array, id, date) => {
+  return array.find(data => {
+    return id === data.userID && date === data.date;
+  });
+}
 
-
-export default averager;
+//export default {averager, finder};
 
 // calculateAverageSleep(id) {
 //     let perDaySleep = this.sleepData.filter((data) => id === data.userID);
