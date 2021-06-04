@@ -1,4 +1,4 @@
-import totaller from './util';
+import averager from './util';
 
 class Hydration {
   constructor(hydrationData) {
@@ -6,7 +6,7 @@ class Hydration {
   }
   calculateAverageOunces(id) {
     let perDayUserHydration = this.hydrationData.filter(data => id === data.userID);
-    return totaller(perDayUserHydration, `numOunces`);
+    return averager(perDayUserHydration, `numOunces`);
   }
   calculateDailyOunces(id, date) {
     let findOuncesByDate = this.hydrationData.find((data) => id === data.userID && date === data.date);
