@@ -18,7 +18,7 @@ h1 {
 main {
   display: flex;
   flex-direction: row;
-  height: 1500px;
+  height: 2000px;
 }
 
 .sidebar {
@@ -36,7 +36,7 @@ main {
   width: 25%;
 }
 
-.sidebar-header-line {
+.divide-line {
   color: #ffffff;
   border: 1px solid black;
   margin: 1em 1em 0 1em;
@@ -58,10 +58,6 @@ main {
 .sidebar-body-friendContainer {
   display: flex;
   flex-direction: column;
-}
-
-.sidebar-friendContainer-listItems {
-  text-align: left;
 }
 
 .body-main-infoContainter {
