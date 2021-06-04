@@ -9,7 +9,7 @@ import hydrationData from './data/hydration';
 import sleepData from './data/sleep';
 import activityData from './data/activity';
 
-import getUsers from './webAPI';
+// import { getUsers } from './webAPI';/
 
 import User from './User';
 import Activity from './Activity';
@@ -49,6 +49,32 @@ var userMinutesThisWeek = document.getElementById('userMinutesThisWeek');
 var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
+
+let fitlitData = [];
+
+import apiCalls from './webAPI';
+window.onload = generateStartingInformation()
+function generateStartingInformation() {
+  apiCalls.retrieveData()
+    .then((promise) => {
+      let userData = promise[0].userData
+      let hydrationData = promise[1].hydrationData
+      let sleepData = promise[2].sleepData
+      let activityData = promise[3].activityData
+      fitlitData[0] = userData;
+      fitlitData[1] = hydrationData;
+      fitlitData[2] = sleepData;
+      fitlitData[3] = activityData;
+    })
+}
+
+// let realUserData = [];
+// window.addEventListener('load', function() {
+//   getUsers()
+//     .then(response => response.JSON())
+//     .then(data => console.log('^^^^^^^^^^>>>>>>>>>>>>', data))
+//     .catch( err => console.log(err))
+// })
 
 function startApp() {
   console.log(getUsers);
