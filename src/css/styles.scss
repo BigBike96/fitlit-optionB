@@ -55,7 +55,7 @@ main {
   justify-content: center;
 }
 
-.sidebar-body-friendContainer {
+.friend-data-container {
   display: flex;
   flex-direction: column;
 }
@@ -206,15 +206,7 @@ main {
   color: black;
 }
 
-.thisWeek {
-  text-align: center;
-  font-size: 1em;
-  font-weight: bolder;
-  margin: .5em;
-  color: black;
-}
-
-.card-vertical-list {
+.card-list {
   list-style-type: none;
   font-weight: normal;
   font-family: sans-serif;
