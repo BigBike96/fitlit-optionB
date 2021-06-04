@@ -13,6 +13,11 @@ class Sleep {
   }
   calculateAverageSleepQuality(id) {
     let perDaySleepQuality = this.sleepData.filter((data) => id === data.userID);
+    /* 
+    return perDaySleepQuality.reduce((sumSoFar, data) => {
+      return sumSoFar += data.sleepQuality;
+    }, 0) / perDaySleepQuality.length;
+  }*/
     return averager(perDaySleepQuality, 'sleepQuality');
   }
   calculateDailySleep(id, date) {
@@ -21,8 +26,9 @@ class Sleep {
     //return findSleepByDate.hoursSlept;
   }
   calculateDailySleepQuality(id, date) {
-    let findSleepQualityByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
-    return findSleepQualityByDate.sleepQuality;
+    //let findSleepQualityByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
+    return finder(this.sleepData, id, date).sleepQuality;
+    //return findSleepQualityByDate.sleepQuality;
   }
   calculateWeekSleep(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
@@ -30,6 +36,7 @@ class Sleep {
   calculateWeekSleepQuality(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   }
+
   calculateAllUserSleepQuality() {
     var totalSleepQuality = this.sleepData.reduce(function(sumSoFar, dataItem) {
       sumSoFar += dataItem.sleepQuality;
