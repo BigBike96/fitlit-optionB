@@ -165,10 +165,7 @@ main {
   width: 50%;
 }
 
-.card-history-sleep {
-  text-align: center;
-  background-color: #EC96A4;
-  font-size: 1em;
+.card-history {
   margin: .5em;
   font-family: sans-serif;
   display: flex;
@@ -177,16 +174,12 @@ main {
   width: 50%;
 }
 
-.card-history-activity {
-  text-align: center;
+.sleep-history {
+  background-color: #EC96A4;
+}
+
+.activity-history {
   background-color: #DFE166;
-  font-size: 1em;
-  margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 50%;
   height: 93%;
   overflow: scroll;
 }
