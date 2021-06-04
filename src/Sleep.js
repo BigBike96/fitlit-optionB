@@ -1,14 +1,13 @@
 import sleepData from './data/sleep';
+import totaller from './util';
 
 class Sleep {
   constructor(sleepData) {
     this.sleepData = sleepData;
   }
   calculateAverageSleep(id) {
-    let perDaySleep = this.sleepData.filter((data) => id === data.userID);
-    return perDaySleep.reduce((sumSoFar, data) => {
-      return sumSoFar += data.hoursSlept;
-    }, 0) / perDaySleep.length;
+    let perDaySleep = this.sleepData.filter(data => id === data.userID);
+    return totaller(perDaySleep, `hoursSlept`);
   }
   calculateAverageSleepQuality(id) {
     let perDaySleepQuality = this.sleepData.filter((data) => id === data.userID);
