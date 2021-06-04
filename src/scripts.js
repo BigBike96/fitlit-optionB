@@ -9,6 +9,8 @@ import hydrationData from './data/hydration';
 import sleepData from './data/sleep';
 import activityData from './data/activity';
 
+import getUsers from './webAPI';
+
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
@@ -49,6 +51,7 @@ var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
 function startApp() {
+  console.log(getUsers);
   let userList = [];
   makeUsers(userList);
   let userRepo = new UserRepo(userList);
