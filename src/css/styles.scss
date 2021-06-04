@@ -191,6 +191,13 @@ main {
   overflow: scroll;
 }
 
+.number {
+  font-size: 2em;
+  font-weight: bolder;
+  color: #4d4e4f;
+  font-kerning: normal;
+}
+
 .card-list {
   list-style-type: none;
   font-weight: normal;
