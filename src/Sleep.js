@@ -1,5 +1,7 @@
 import sleepData from './data/sleep';
-import averager from './util';
+// import averager from './util';
+// import finder from './util';
+import { averager, finder} from './util';
 
 class Sleep {
   constructor(sleepData) {
@@ -14,8 +16,9 @@ class Sleep {
     return averager(perDaySleepQuality, 'sleepQuality');
   }
   calculateDailySleep(id, date) {
-    let findSleepByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
-    return findSleepByDate.hoursSlept;
+    //let findSleepByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
+    return finder(this.sleepData, id, date).hoursSlept;
+    //return findSleepByDate.hoursSlept;
   }
   calculateDailySleepQuality(id, date) {
     let findSleepQualityByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
