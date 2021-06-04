@@ -27,13 +27,13 @@ main {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
   height: 100%;
   padding: 1%;
   text-align: center;
   width: 25%;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 1.2em;
 }
 
 .sidebar-header-line {
