@@ -1,13 +1,11 @@
 * {
   margin: 0;
 }
-
 body {
   font-family: 'Open Sans';
   background-color: #4d4e4f;
   height: auto;
 }
-
 h1 {
   text-align: center;
   color: #ffffff;
@@ -86,7 +84,6 @@ main {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-
 .card {
   height: auto;
   font-size: 1.25em;
@@ -102,7 +99,6 @@ main {
 .hydration-card {
   background-color: #5BC8AC;
 }
-
 .sleep-card {
   background-color: #EC96A4;
 }
@@ -110,7 +106,6 @@ main {
 .activity-card {
   background-color: #DFE166;
 }
-
 .number {
   font-size: 2em;
   font-weight: bolder;
@@ -126,3 +121,4 @@ main {
   padding: 1em;
   font-size: 1em;
 }
+

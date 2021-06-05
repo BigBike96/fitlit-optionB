@@ -9,18 +9,3 @@ export const finder = (array, id, date) => {
 export const findDataByDate = (array, date, id, userRepo, key, weekDate) => {
   return userRepo.getWeekFromDate(date, id, array).map((data) => `${data.date}: ${data[key]}`);
 }
-// export const 
-
-//export default {averager, finder};
-
-// calculateAverageSleep(id) {
-//     let perDaySleep = this.sleepData.filter((data) => id === data.userID);
-//     return perDaySleep.reduce((sumSoFar, data) => {
-//       return sumSoFar += data.hoursSlept;
-//     }, 0) / perDaySleep.length;
-//   }
- 
-// function(sumSoFar, sleepQualityValue) {
-//     sumSoFar += sleepQualityValue
-//     return sumSoFar;
-//   }, 0)

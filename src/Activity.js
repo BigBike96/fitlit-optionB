@@ -9,9 +9,7 @@ class Activity {
     return parseFloat(((userStepsByDate.numSteps * userRepo.strideLength) / 5280).toFixed(1));
   }
   getActiveMinutesByDate(id, date) {
-    // let userActivityByDate = this.activityData.find(data => id === data.userID && date === data.date);
     return finder(this.activityData, id, date).minutesActive
-    // return userActivityByDate.minutesActive;
   }
   calculateActiveAverageForWeek(id, date, userRepo) {
     return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
@@ -47,10 +45,10 @@ class Activity {
 
   getFriendsActivity(user, userRepo) {
     let data = this.activityData;
-    let userDatalist = user.friends.map(function(friend) {
+    let userDatalist = user.friends.map((friend) => {
       return userRepo.getDataFromUserID(friend, data)
     });
-    return userDatalist.reduce(function(arraySoFar, listItem) {
+    return userDatalist.reduce((arraySoFar, listItem) => {
       return arraySoFar.concat(listItem);
     }, []);
   }
@@ -62,7 +60,7 @@ class Activity {
   showChallengeListAndWinner(user, date, userRepo) {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
 
-    return rankedList.map(function(listItem) {
+    return rankedList.map(listItem => {
       let userID = Object.keys(listItem)[0];
       let userName = userRepo.getDataFromID(parseInt(userID)).name;
       return `${userName}: ${listItem[userID]}`
@@ -76,12 +74,12 @@ class Activity {
   getStreak(userRepo, id, relevantData) {
     let data = this.activityData;
     let sortedUserArray = (userRepo.makeSortedUserArray(id, data)).reverse();
-    let streaks = sortedUserArray.filter(function(element, index) {
+    let streaks = sortedUserArray.filter((element, index) => {
       if (index >= 2) {
         return (sortedUserArray[index - 2][relevantData] < sortedUserArray[index - 1][relevantData] && sortedUserArray[index - 1][relevantData] < sortedUserArray[index][relevantData])
       }
     });
-    return streaks.map(function(streak) {
+    return streaks.map((streak) => {
       return streak.date;
     })
   }
@@ -91,7 +89,5 @@ class Activity {
     return parseInt(keysList[0].join(''))
   }
 }
-
-
 
 export default Activity;
