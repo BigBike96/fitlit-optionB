@@ -51,8 +51,8 @@ let sendData = (sentData, url) => {
     .catch(err => console.log(err));
 }
 
-let postData = (postableData, url) => {
-  return Promise.all([sendData(postableData, url)])
+let postData = (postableData, urlEndpoint) => {
+  return Promise.all([sendData(postableData, `http://localhost:3001/api/v1/${urlEndpoint}`)]);
 }
 
 export default {retrieveData, postData};
