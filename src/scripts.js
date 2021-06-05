@@ -1,17 +1,19 @@
 import './css/base.scss';
 import './css/styles.scss';
 
+
 import userData from './data/users';
 import hydrationData from './data/hydration';
 import sleepData from './data/sleep';
 import activityData from './data/activity';
+
+import './css/styles.scss';
 
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
-
 import apiCalls from './webAPI';
 
 const sidebarName = document.getElementById('sidebarName');
@@ -36,12 +38,13 @@ const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
 let fitlitData = [];
 
+
 window.onload = generateStartingInformation()
 function generateStartingInformation() {
   let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
   apiCalls.postData(activity1, 'activity')
 
-    let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+  let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
   apiCalls.postData(sleep1, 'sleep')
 
   let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
@@ -50,7 +53,7 @@ function generateStartingInformation() {
   apiCalls.retrieveData()
     .then((promise) => {
       fitlitData = [promise[0].userData, promise[1].hydrationData, promise[2].sleepData, promise[3].activityData]
-    })
+    }) 
 }
 
 function startApp() {
@@ -72,6 +75,7 @@ function startApp() {
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
 }
+
 
 function makeUsers(array) {
   userData.forEach(function(dataItem) {
