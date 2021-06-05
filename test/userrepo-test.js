@@ -7,7 +7,7 @@ import User from '../src/User';
 describe('User Repo', () => {
   let user1;
   let user2;
-  let user;
+  let users;
   let userRepo;
 
   beforeEach(() => {
@@ -33,8 +33,8 @@ describe('User Repo', () => {
     userRepo = new UserRepo(users);
   });
 
-  it('should be a function', () => {
-    const userRepo = new UserRepo();
+
+  it('should be a function', function() {
 
     expect(UserRepo).to.be.a('function');
   });
