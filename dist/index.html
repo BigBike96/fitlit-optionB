@@ -18,101 +18,99 @@
         <p id="userStridelength"></p>
         <p id="stepGoalCard"></p>
         <p id="avStepGoalCard"><p>
-        <section class="friend-data-container">
-          <p>Friends</p>
-          <ul class="card-list" id="friendList"></ul>
-        </section>
+        <p>Friends</p>
+        <ul class="card-list" id="friendList"></ul>
         <p>Keep up the good work! You were increasingly active on these dates:</p>
         <ul class="card-list" id="streakListMinutes"></ul>
       </section>
       <section class="body-main-infoContainter">
-        <section class="main-column-hydration">
+        <section class="column">
           <section class="info-card-container horizontal-card">
-            <article class="card-today-hydration">
+            <article class="card hydration-card">
               <p id="hydrationToday"></p>
             </article>
-            <article class="card-today-hydration">
+            <article class="card hydration-card">
               <p id="hydrationAverage"></p>
             </article>
           </section>
           <section class="info-card-container vertical-card">
-            <article class="card-history-hydration">
+            <article class="card hydration-card">
               <p>Water intake this week:</p>
               <ul class="card-list" id="hydrationThisWeek"></ul>
             </article>
-            <article class="card-history-hydration">
+            <article class="card hydration-card">
               <ul class="card-list" id="hydrationEarlierWeek"></ul>
             </article>
           </section>
         </section>
-        <section class="main-column-activity">
+        <section class="column">
           <section class="info-card-container horizontal-card">
             <section class="horizontalCard-activity-container">
-              <article class="card-today-activity">
+              <article class="card activity-card">
                 <p id="userStepsToday"></p>
               </article>
-              <article class="card-today-activity">
+              <article class="card activity-card">
                 <p id="avgStepsToday"></p>
               </article>
             </section>
             <section class="horizontalCard-activity-container">
-              <article class="card-today-activity">
+              <article class="card activity-card">
                 <p id="userStairsToday"></p>
               </article>
-              <article class="card-today-activity">
+              <article class="card activity-card">
                 <p id="avgStairsToday"></p>
               </article>
             </section>
             <section class="horizontalCard-activity-container">
-              <article class="card-today-activity">
+              <article class="card activity-card">
                 <p id="userMinutesToday"></p>
               </article>
-              <article class="card-today-activity">
+              <article class="card activity-card">
                 <p id="avgMinutesToday"></p>
               </article>
             </section>
           </section>
           <section class="info-card-container horizontal-card">
             <section class="horizontalCard-activity-container">
-              <article class="card-history activity-history">
+              <article class="card activity-card">
                 <p>Your steps this week</p>
                 <ul class="card-list" id="userStepsThisWeek"></ul>
               </article>
-              <article class="card-history activity-history">
+              <article class="card activity-card">
                 <p>Your stair count this week</p>
                 <ul class="card-list" id="userStairsThisWeek"></ul>
               </article>
             </section>
             <section class="horizontalCard-activity-container">
-              <article class="card-history activity-history">
+              <article class="card activity-card">
                 <p>Your minutes of activity this week</p>
                 <ul class="card-list" id="userMinutesThisWeek"></ul>
               </article>
-              <article class="card-history activity-history">
+              <article class="card activity-card">
                 <p>Winner's steps this week</p>
                 <ul class="card-list" id="bestUserSteps"></ul>
               </article>
             </section>
           </section>
         </section>
-        <section class="main-column-sleep">
+        <section class="column">
           <section class="info-card-container horizontal-card">
-            <article class="card-today-sleep">
+            <article class="card sleep-card">
               <p id="sleepToday"></p>
             </article>
-            <article class="card-today-sleep">
+            <article class="card sleep-card">
               <p id="sleepQualityToday"></p>
             </article>
-            <article class="card-today-sleep">
+            <article class="card sleep-card">
               <p id="avUserSleepQuality"></p>
             </article>
           </section>
           <section class="info-card-container vertical-card">
-            <article class="card-history sleep-history">
+            <article class="card sleep-card">
               <p>Hours of sleep this week</p>
               <ul class="card-list" id="sleepThisWeek"></ul>
             </article>
-            <article class="card-history sleep-history">
+            <article class="card sleep-card">
               <ul class="card-list" id="sleepEarlierWeek"></ul>
             </article>
           </section>
@@ -122,14 +120,12 @@
         <h2>Friendly Step Challenge!</h2>
         <img src="./images/person walking on path.jpg" alt="A picture of a pair of legs, walking forward down a sidewalk" class="sidebar-image">
         <p id="bigWinner"></p>
-        <section class="friend-data-container">
-          <p>Rank this week</p>
-          <ul class="card-list" id="friendChallengeListToday"></ul>
-          <p>- Historical Rank</p>
-          <ul class="card-list" id="friendChallengeListHistory"></ul>
-          <p>You had 3-Day Step Streaks on these days:</p>
-          <ul class="card-list" id="streakList"></ul>
-        </section>
+        <p>Rank this week</p>
+        <ul class="card-list" id="friendChallengeListToday"></ul>
+        <p>- Historical Rank</p>
+        <ul class="card-list" id="friendChallengeListHistory"></ul>
+        <p>You had 3-Day Step Streaks on these days:</p>
+        <ul class="card-list" id="streakList"></ul>
       </section>
     </main>
     <script src="bundle.js"></script>
