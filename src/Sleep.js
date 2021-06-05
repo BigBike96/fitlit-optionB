@@ -1,6 +1,4 @@
 import sleepData from './data/sleep';
-// import averager from './util';
-// import finder from './util';
 import { averager, finder} from './util';
 
 class Sleep {
@@ -15,28 +13,16 @@ class Sleep {
 
   calculateAverageSleepQuality(id) {
     let perDaySleepQuality = this.sleepData.filter((data) => id === data.userID);
-    /*
-    return perDaySleepQuality.reduce((sumSoFar, data) => {
-      return sumSoFar += data.sleepQuality;
-    }, 0) / perDaySleepQuality.length;
-  }*/
     return averager(perDaySleepQuality, 'sleepQuality');
   }
-  // can these be done in the same method??^^^^^^^^^^^^^^^^
-
 
   calculateDailySleep(id, date) {
-    //let findSleepByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
     return finder(this.sleepData, id, date).hoursSlept;
-    //return findSleepByDate.hoursSlept;
   }
 
   calculateDailySleepQuality(id, date) {
-    //let findSleepQualityByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
     return finder(this.sleepData, id, date).sleepQuality;
-    //return findSleepQualityByDate.sleepQuality;
   }
-  // can these be done in the same method??^^^^^^^^^^^^^^^^
 
   calculateWeekSleep(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
@@ -45,12 +31,15 @@ class Sleep {
   calculateWeekSleepQuality(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   }
+
   calculateAllUserSleepQuality() {
-    var totalSleepQuality = this.sleepData.reduce((sumSoFar, dataItem) => {
-      sumSoFar += dataItem.sleepQuality;
-      return sumSoFar;
-    }, 0)
-    return totalSleepQuality / sleepData.length
+    // var totalSleepQuality = this.sleepData.reduce((sumSoFar, dataItem) => {
+    //   sumSoFar += dataItem.sleepQuality;
+    //   return sumSoFar;
+    // }, 0)
+    // return totalSleepQuality / sleepData.length
+
+    return averager(this.sleepData, 'sleepQuality');
   }
 
   determineBestSleepers(date, userRepo) {
