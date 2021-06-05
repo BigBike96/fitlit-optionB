@@ -36,12 +36,11 @@ main {
   width: 25%;
 }
 
-.divide-line {
-  color: #ffffff;
-  border: 1px solid black;
-  margin: 1em 1em 0 1em;
-  height: 0;
-  width: 80%;
+.sidebar h2, .sidebar p {
+  border-bottom: 3px solid black;
+  margin: 0.5em;
+  padding: 0.5em;
+  width: 90%;
 }
 
 .sidebar-image {
