@@ -1,19 +1,23 @@
-import './css/base.scss';
+// import './css/base.scss';
+import  './images/person-walking-on-path.jpg';
+import './images/the-rock.jpg';
+// import { getUsers } from './webAPI';/
+
+
+
+// import userData from './data/users';
+// import hydrationData from './data/hydration';
+// import sleepData from './data/sleep';
+// import activityData from './data/activity';
+
+
 import './css/styles.scss';
-
-import './images/person walking on path.jpg';
-import './images/The Rock.jpg';
-
-import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
-
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
+import apiCalls from './webAPI';
 
 const sidebarName = document.getElementById('sidebarName');
 const stepGoalCard = document.getElementById('stepGoalCard');
@@ -37,14 +41,68 @@ const activityHistoryCard = document.querySelector('#activityHistoryCard');
 const sleepTodayCard = document.querySelector('#sleepTodayCard');
 const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
-function startApp() {
-  let userList = [];
-  makeUsers(userList);
-  let userRepo = new UserRepo(userList);
-  let hydrationRepo = new Hydration(hydrationData);
-  let sleepRepo = new Sleep(sleepData);
-  let activityRepo = new Activity(activityData);
-  let userNowId = pickUser();
+let fitlitData = [];
+
+// window.onload = generateStartingInformation()
+// function generateStartingInformation() {
+//   let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+//   apiCalls.postData(activity1, 'activity')
+//     //.then(response => console.log("This is the response on scripts side", response))
+//     //.then(json => console.log("This is the JSON parsed", json))
+//     .catch(err => console.log("error in the activitiy", err));
+
+//     let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+//   apiCalls.postData(sleep1, 'sleep')
+//   .catch(err => console.log("Error in the sleep", err));
+
+//   let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+//   apiCalls.postData(hydration1, 'hydration')
+//   .catch(err => console.log("error in hydration", err));
+
+
+window.onload = generateStartingInformation()
+function generateStartingInformation() {
+  apiCalls.retrieveData()
+    .then((promise) => {
+      let userData = promise[0].userData
+      let hydrationData = promise[1].hydrationData
+      let sleepData = promise[2].sleepData
+      let activityData = promise[3].activityData
+      //       fitlitData[0] = userData;
+      //       fitlitData[1] = hydrationData;
+      //       fitlitData[2] = sleepData;
+      //       fitlitData[3] = activityData;
+      //       console.log(fitlitData);
+      //     })
+      // }
+      let userList = [];
+      // makeUsers(userData);
+      let userRepo =  new UserRepo(userList);
+      let hydrationRepo = new Hydration(hydrationData);
+      let sleepRepo = new Sleep(sleepData);
+      let activityRepo = new Activity(activityData);
+      startApp(userRepo, hydrationRepo, sleepRepo, activityRepo)
+    })
+}
+
+
+
+
+
+
+// let realUserData = [];
+// window.addEventListener('load', function() {
+//   getUsers()
+//     .then(response => response.JSON())
+//     .then(data => console.log('^^^^^^^^^^>>>>>>>>>>>>', data))
+//     .catch( err => console.log(err))
+// })
+
+function startApp(userRepo, hydrationRepo, sleepRepo, activityRepo) {
+  // let userList = [];
+  // makeUsers(userList);
+  // let userRepo = new UserRepo(userList);
+  var userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
   let today = makeToday(userRepo, userNowId, hydrationData);
   let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData);
@@ -56,6 +114,7 @@ function startApp() {
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
 }
+
 
 function makeUsers(array) {
   userData.forEach(function(dataItem) {
@@ -70,7 +129,7 @@ function pickUser() {
 
 function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
-};
+}
 
 function addInfoToSidebar(user, userStorage) {
   sidebarName.innerText = user.name;
@@ -81,13 +140,13 @@ function addInfoToSidebar(user, userStorage) {
   userEmail.innerText = user.email;
   userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
-};
+}
 
 function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li>${friendName}</li>`).join('');
 }
 
-function makeWinnerID(activityInfo, user, dateString, userStorage){
+function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage)
 }
 
