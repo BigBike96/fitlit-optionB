@@ -1,3 +1,5 @@
+import { averager } from "./util";
+
 class UserRepo {
   constructor(users) {
     this.users = users;
@@ -12,10 +14,11 @@ class UserRepo {
   }
 
   calculateAverageStepGoal() {
-    var totalStepGoal = this.users.reduce((sumSoFar, data) => {
-      return sumSoFar = sumSoFar + data.dailyStepGoal;
-    }, 0);
-    return totalStepGoal / this.users.length;
+    return averager(this.users, 'dailyStepGoal');
+    // var totalStepGoal = this.users.reduce((sumSoFar, data) => {
+    //   return sumSoFar = sumSoFar + data.dailyStepGoal;
+    // }, 0);
+    //return totalStepGoal / this.users.length;
   }
 
   makeSortedUserArray(id, dataSet) {
@@ -32,6 +35,7 @@ class UserRepo {
     return this.makeSortedUserArray(id, dataSet).slice(0, 7);
   }
 
+  //maybe start some refactoring here 
   getWeekFromDate(date, id, dataSet) {
     let dateIndex = this.makeSortedUserArray(id, dataSet).indexOf(this.makeSortedUserArray(id, dataSet).find((sortedItem) => (sortedItem.date === date)));
     return this.makeSortedUserArray(id, dataSet).slice(dateIndex, dateIndex + 7);
