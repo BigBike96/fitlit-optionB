@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 
 // GET for users
 
@@ -38,24 +39,27 @@ http://localhost:3001/api/v1/sleep {"userID": integer, "date": string, "hoursSle
 //let sleep1 = {"userID": 47, "date": "March/09/2020", "hoursSlept": 7, "sleepQuality": 1.5}
 //let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
 
-let sendData = (sentData, url) => {
-  return fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(sentData), // remember how HTTP can only send and receive strings, just like localStorage?
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(json => console.log("This is the Json post being sent from the API FILE", json))
-    .catch(err => console.log(err));
-}
+// let sendData = (sentData, url) => {
+//   return fetch(url, {
+//     method: 'POST',
+//     body: JSON.stringify(sentData), // remember how HTTP can only send and receive strings, just like localStorage?
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//     .then(response => response.json())
+//     .then(json => console.log("This is the Json post being sent from the API FILE", json))
+//     .catch(err => console.log(err));
+// }
 
-let postData = (postableData, urlEndpoint) => {
-  return Promise.all([sendData(postableData, `http://localhost:3001/api/v1/${urlEndpoint}`)]);
-}
+// let postData = (postableData, urlEndpoint) => {
+//   return Promise.all([sendData(postableData, `http://localhost:3001/api/v1/${urlEndpoint}`)]);
+// }
 
-export default {retrieveData, postData};
+// export default {retrieveData, postData};
+
+export default {retrieveData};
+
 
  // User Data	GET	http://localhost:3001/api/v1/users
 // Sleep Data	GET	http://localhost:3001/api/v1/sleep
