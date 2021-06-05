@@ -55,6 +55,7 @@ let fitlitData = [];
 import apiCalls from './webAPI';
 window.onload = generateStartingInformation()
 function generateStartingInformation() {
+  apiCalls.postData()
   apiCalls.retrieveData()
     .then((promise) => {
       let userData = promise[0].userData
