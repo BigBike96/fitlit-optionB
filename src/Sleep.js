@@ -33,12 +33,6 @@ class Sleep {
   }
 
   calculateAllUserSleepQuality() {
-    // var totalSleepQuality = this.sleepData.reduce((sumSoFar, dataItem) => {
-    //   sumSoFar += dataItem.sleepQuality;
-    //   return sumSoFar;
-    // }, 0)
-    // return totalSleepQuality / sleepData.length
-
     return averager(this.sleepData, 'sleepQuality');
   }
 
@@ -84,6 +78,5 @@ class Sleep {
     });
   }
 }
-
 
 export default Sleep;
