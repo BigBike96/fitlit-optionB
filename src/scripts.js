@@ -1,8 +1,8 @@
 // import './css/base.scss';
-import './css/styles.scss';
+import styles from './css/styles.scss';
 
-import './images/person walking on path.jpg';
-import './images/The Rock.jpg';
+// import  './images/person-walking-on-path.jpg';
+// import './images/the-rock.jpg';
 
 import userData from './data/users';
 import hydrationData from './data/hydration';
@@ -50,23 +50,23 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
-let fitlitData = [];
+// let fitlitData = [];
 
-import apiCalls from './webAPI';
-window.onload = generateStartingInformation()
-function generateStartingInformation() {
-  apiCalls.retrieveData()
-    .then((promise) => {
-      let userData = promise[0].userData
-      let hydrationData = promise[1].hydrationData
-      let sleepData = promise[2].sleepData
-      let activityData = promise[3].activityData
-      fitlitData[0] = userData;
-      fitlitData[1] = hydrationData;
-      fitlitData[2] = sleepData;
-      fitlitData[3] = activityData;
-    })
-}
+// import apiCalls from './webAPI';
+// window.onload = generateStartingInformation()
+// function generateStartingInformation() {
+//   apiCalls.retrieveData()
+//     .then((promise) => {
+//       let userData = promise[0].userData
+//       let hydrationData = promise[1].hydrationData
+//       let sleepData = promise[2].sleepData
+//       let activityData = promise[3].activityData
+//       fitlitData[0] = userData;
+//       fitlitData[1] = hydrationData;
+//       fitlitData[2] = sleepData;
+//       fitlitData[3] = activityData;
+//     })
+// }
 
 // let realUserData = [];
 // window.addEventListener('load', function() {
