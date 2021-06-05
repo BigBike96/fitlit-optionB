@@ -58,10 +58,19 @@ let fitlitData = [];
 window.onload = generateStartingInformation()
 function generateStartingInformation() {
   let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
-  apiCalls.postData(activity1, 'http://localhost:3001/api/v1/activity')
+  apiCalls.postData(activity1, 'activity')
     //.then(response => console.log("This is the response on scripts side", response))
     //.then(json => console.log("This is the JSON parsed", json))
-    .catch(err => console.log(err));
+    .catch(err => console.log("error in the activitiy", err));
+
+    let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+  apiCalls.postData(sleep1, 'sleep')
+  .catch(err => console.log("Error in the sleep", err));
+
+  let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+  apiCalls.postData(hydration1, 'hydration')
+  .catch(err => console.log("error in hydration", err));
+
 
   apiCalls.retrieveData()
     .then((promise) => {
