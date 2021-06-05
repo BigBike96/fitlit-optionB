@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
 
-describe('User', function() {
+describe('User', () => {
 
-  it('should be a function', function() {
+  it('should be a function', () => {
     const user = new User({
       id: 1,
       name: "Alex Roth",
@@ -18,7 +18,7 @@ describe('User', function() {
     expect(User).to.be.a('function');
   });
 
-  it('should be an instance of User', function() {
+  it('should be an instance of User', () => {
     const user = new User({
       id: 1,
       name: "Alex Roth",
@@ -31,7 +31,7 @@ describe('User', function() {
     expect(user).to.be.an.instanceof(User);
   });
 
-  it('should take a user data object', function() {
+  it('should take a user data object', () => {
     const user = new User({
       id: 1,
       name: "Alex Roth",
@@ -46,7 +46,7 @@ describe('User', function() {
     expect(user.name).to.equal("Alex Roth");
   });
 
-  it('should take a different user data object', function() {
+  it('should take a different user data object', () => {
     const user2 = new User({
       id: 2,
       name: "Allie McCarthy",
@@ -61,7 +61,7 @@ describe('User', function() {
     expect(user2.name).to.equal("Allie McCarthy");
   });
 
-  it('should return user first name', function() {
+  it('should return user first name', () => {
     const user2 = new User({
       id: 2,
       name: "Allie McCarthy",
@@ -75,7 +75,7 @@ describe('User', function() {
     expect(user2.getFirstName()).to.equal("Allie");
   });
 
-  it('should return list of friend names from user repository', function() {
+  it('should return list of friend names from user repository', () => {
     const user1 = new User({
       id: 1,
       name: "Alex Roth",
