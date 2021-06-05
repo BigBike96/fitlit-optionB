@@ -10,12 +10,15 @@ import sleepData from './data/sleep';
 import activityData from './data/activity';
 
 // import { getUsers } from './webAPI';/
+// import  postData  from './webAPI';
 
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
+
+import apiCalls from './webAPI';
 
 var sidebarName = document.getElementById('sidebarName');
 var stepGoalCard = document.getElementById('stepGoalCard');
@@ -52,10 +55,14 @@ var streakListMinutes = document.getElementById('streakListMinutes')
 
 let fitlitData = [];
 
-import apiCalls from './webAPI';
 window.onload = generateStartingInformation()
 function generateStartingInformation() {
-  apiCalls.postData()
+  let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+  apiCalls.postData(activity1, 'http://localhost:3001/api/v1/activity')
+    //.then(response => console.log("This is the response on scripts side", response))
+    //.then(json => console.log("This is the JSON parsed", json))
+    .catch(err => console.log(err));
+
   apiCalls.retrieveData()
     .then((promise) => {
       let userData = promise[0].userData
@@ -66,6 +73,7 @@ function generateStartingInformation() {
       fitlitData[1] = hydrationData;
       fitlitData[2] = sleepData;
       fitlitData[3] = activityData;
+      console.log(fitlitData);
     })
 }
 
@@ -78,7 +86,7 @@ function generateStartingInformation() {
 // })
 
 function startApp() {
-  console.log(getUsers);
+  //console.log(getUsers);
   let userList = [];
   makeUsers(userList);
   let userRepo = new UserRepo(userList);
@@ -111,7 +119,7 @@ function pickUser() {
 
 function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
-};
+}
 
 
 function addInfoToSidebar(user, userStorage) {
@@ -123,13 +131,13 @@ function addInfoToSidebar(user, userStorage) {
   userEmail.innerText = user.email;
   userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
-};
+}
 
 function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
 }
 
-function makeWinnerID(activityInfo, user, dateString, userStorage){
+function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage)
 }
 
@@ -158,7 +166,7 @@ function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
   sleepToday.insertAdjacentHTML("afterBegin", `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
   sleepQualityToday.insertAdjacentHTML("afterBegin", `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
-  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>out of 5.</p>`);
+  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`);
   sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
   sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
 }
