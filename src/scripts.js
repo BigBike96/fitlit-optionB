@@ -48,7 +48,8 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
-var hydrationTodayCard = document.getElementById('hydrationTodayCard');
+const hydrationTodayCard = document.querySelector('#hydrationTodayCard');
+const hydrationHistoryCard = document.querySelector('#hydrationHistoryCard');
 
 function startApp() {
   let userList = [];
@@ -123,8 +124,17 @@ function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateS
   <article class="card hydration-card">
     <p>Your average water intake is</p><p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>oz per day.</p>
   </article>`);
-  hydrationThisWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateFirstWeekOunces(userStorage, id)));
-  hydrationEarlierWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateRandomWeekOunces(laterDateString, id, userStorage)));
+  hydrationHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card hydration-card">
+    <p>Water intake this week:</p>
+    <ul class="card-list" id="hydrationThisWeek">
+      ${makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateFirstWeekOunces(userStorage, id))}
+    </ul>
+  </article>
+  <article class="card hydration-card">
+    <ul class="card-list" id="hydrationEarlierWeek">
+      ${makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateRandomWeekOunces(laterDateString, id, userStorage))}
+    </ul>
+  </article>`);
 }
 
 function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
