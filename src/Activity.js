@@ -47,10 +47,10 @@ class Activity {
 
   getFriendsActivity(user, userRepo) {
     let data = this.activityData;
-    let userDatalist = user.friends.map(function(friend) {
+    let userDatalist = user.friends.map((friend) => {
       return userRepo.getDataFromUserID(friend, data)
     });
-    return userDatalist.reduce(function(arraySoFar, listItem) {
+    return userDatalist.reduce((arraySoFar, listItem) => {
       return arraySoFar.concat(listItem);
     }, []);
   }
@@ -62,7 +62,7 @@ class Activity {
   showChallengeListAndWinner(user, date, userRepo) {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
 
-    return rankedList.map(function(listItem) {
+    return rankedList.map(listItem => {
       let userID = Object.keys(listItem)[0];
       let userName = userRepo.getDataFromID(parseInt(userID)).name;
       return `${userName}: ${listItem[userID]}`
@@ -76,12 +76,12 @@ class Activity {
   getStreak(userRepo, id, relevantData) {
     let data = this.activityData;
     let sortedUserArray = (userRepo.makeSortedUserArray(id, data)).reverse();
-    let streaks = sortedUserArray.filter(function(element, index) {
+    let streaks = sortedUserArray.filter((element, index) => {
       if (index >= 2) {
         return (sortedUserArray[index - 2][relevantData] < sortedUserArray[index - 1][relevantData] && sortedUserArray[index - 1][relevantData] < sortedUserArray[index][relevantData])
       }
     });
-    return streaks.map(function(streak) {
+    return streaks.map((streak) => {
       return streak.date;
     })
   }
