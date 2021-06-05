@@ -10,11 +10,8 @@ class Hydration {
     return averager(perDayUserHydration, `numOunces`);
   }
 
-  calculateDailyOunces(id, date) {
-    //let findOuncesByDate = this.hydrationData.find((data) => id === data.userID && date === data.date);
-    //console.log(finder(this.hydrationData, id, date).numOunces)
+  calculateDailyOunces(id, date) { 
     return finder(this.hydrationData, id, date).numOunces;
-    //return findOuncesByDate.numOunces;
   }
 
   calculateFirstWeekOunces(userRepo, id) {
@@ -22,12 +19,9 @@ class Hydration {
   }
   
   calculateRandomWeekOunces(date, id, userRepo) {
-    //return userRepo.getWeekFromDate(date, id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
-    //console.log(findDataByDate(this.hydrationData, date, id, userRepo, 'numOunces'));
     return findDataByDate(this.hydrationData, date, id, userRepo, 'numOunces');
   }
 
 }
-
 
 export default Hydration;
