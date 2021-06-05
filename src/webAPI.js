@@ -31,13 +31,15 @@ http://localhost:3001/api/v1/sleep {"userID": integer, "date": string, "hoursSle
 // we need to pass in the array.length-1 as a the userId. We need to take in the date as a string. And have two
 //inputs for the hoursSlept, as the sleepQuality......
 
+//http://localhost:3001/api/v1/activity 
+//{"userID": integer, "date": string, "numSteps": integer, "minutesActive": integer, "flightsOfStairs": integer}
 
-
-let exampleObj = {"userID": integer, "date": string, "hoursSlept": integer, "sleepQuality": integer}
-let sleep1 = {"userID": 777, "date": "March/09/2020", "hoursSlept": 7, "sleepQuality": 1.5}
+//let exampleObj = {"userID": integer, "date": string, "hoursSlept": integer, "sleepQuality": integer}
+//let sleep1 = {"userID": 47, "date": "March/09/2020", "hoursSlept": 7, "sleepQuality": 1.5}
+//let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
 
 let sendData = (sentData, url) => {
-  fetch(url, {
+  return fetch(url, {
     method: 'POST',
     body: JSON.stringify(sentData), // remember how HTTP can only send and receive strings, just like localStorage?
     headers: {
@@ -45,18 +47,15 @@ let sendData = (sentData, url) => {
     }
   })
     .then(response => response.json())
-    .then(json => console.log(json.status))
+    .then(json => console.log("This is the Json post being sent from the API FILE", json))
     .catch(err => console.log(err));
 }
 
-let postData = () => {
-  return Promise.all([sendData(sleep1, 'http://localhost:3001/api/v1/sleep')])
+let postData = (postableData, url) => {
+  return Promise.all([sendData(postableData, url)])
 }
 
 export default {retrieveData, postData};
-
-
-
 
  // User Data	GET	http://localhost:3001/api/v1/users
 // Sleep Data	GET	http://localhost:3001/api/v1/sleep
