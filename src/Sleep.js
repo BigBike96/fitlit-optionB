@@ -15,7 +15,7 @@ class Sleep {
 
   calculateAverageSleepQuality(id) {
     let perDaySleepQuality = this.sleepData.filter((data) => id === data.userID);
-    /* 
+    /*
     return perDaySleepQuality.reduce((sumSoFar, data) => {
       return sumSoFar += data.sleepQuality;
     }, 0) / perDaySleepQuality.length;
@@ -46,7 +46,7 @@ class Sleep {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   }
   calculateAllUserSleepQuality() {
-    var totalSleepQuality = this.sleepData.reduce(function(sumSoFar, dataItem) {
+    var totalSleepQuality = this.sleepData.reduce((sumSoFar, dataItem) => {
       sumSoFar += dataItem.sleepQuality;
       return sumSoFar;
     }, 0)
@@ -57,12 +57,12 @@ class Sleep {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let userSleepObject = userRepo.isolateUsernameAndRelevantData(this.sleepData, date, 'sleepQuality', timeline);
 
-    return Object.keys(userSleepObject).filter(function(key) {
-      return (userSleepObject[key].reduce(function(sumSoFar, sleepQualityValue) {
+    return Object.keys(userSleepObject).filter((key) => {
+      return (userSleepObject[key].reduce((sumSoFar, sleepQualityValue) => {
         sumSoFar += sleepQualityValue
         return sumSoFar;
       }, 0) / userSleepObject[key].length) > 3
-    }).map(function(sleeper) {
+    }).map(sleeper => {
       return userRepo.getDataFromID(parseInt(sleeper)).name;
     })
   }
@@ -82,15 +82,15 @@ class Sleep {
   }
 
   getWinnerNamesFromList(sortedArray, userRepo) {
-    let bestSleepers = sortedArray.filter(function(element) {
+    let bestSleepers = sortedArray.filter(element => {
       return element[Object.keys(element)] === Object.values(sortedArray[0])[0]
     });
 
-    let bestSleeperIds = bestSleepers.map(function(bestSleeper) {
+    let bestSleeperIds = bestSleepers.map(bestSleeper => {
       return (Object.keys(bestSleeper));
     });
 
-    return bestSleeperIds.map(function(sleepNumber) {
+    return bestSleeperIds.map(sleepNumber => {
       return userRepo.getDataFromID(parseInt(sleepNumber)).name;
     });
   }
