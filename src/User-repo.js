@@ -47,11 +47,16 @@ class UserRepo {
     })
   }
 
+  // chooseDayDataForAllUsers(dataSet, date) {
+  //   return dataSet.filter(function(dataItem) {
+  //     return dataItem.date === date
+  //   });
+  // }
+
   chooseDayDataForAllUsers(dataSet, date) {
-    return dataSet.filter(function(dataItem) {
-      return dataItem.date === date
-    });
+    return dataSet.filter(dataItem => dataItem.date === date);
   }
+
 
   isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod) {
     return listFromMethod.reduce(function(objectSoFar, dataItem) {
