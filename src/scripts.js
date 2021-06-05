@@ -1,23 +1,22 @@
-import './css/base.scss';
-import './css/styles.scss';
-
-import './images/person walking on path.jpg';
-import './images/The Rock.jpg';
-
-import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
-
+// import './css/base.scss';
+import  './images/person-walking-on-path.jpg';
+import './images/the-rock.jpg';
 // import { getUsers } from './webAPI';/
-// import  postData  from './webAPI';
 
+
+
+// import userData from './data/users';
+// import hydrationData from './data/hydration';
+// import sleepData from './data/sleep';
+// import activityData from './data/activity';
+
+
+import './css/styles.scss';
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
-
 import apiCalls from './webAPI';
 
 var sidebarName = document.getElementById('sidebarName');
@@ -55,36 +54,52 @@ var streakListMinutes = document.getElementById('streakListMinutes')
 
 let fitlitData = [];
 
+// window.onload = generateStartingInformation()
+// function generateStartingInformation() {
+//   let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+//   apiCalls.postData(activity1, 'activity')
+//     //.then(response => console.log("This is the response on scripts side", response))
+//     //.then(json => console.log("This is the JSON parsed", json))
+//     .catch(err => console.log("error in the activitiy", err));
+
+//     let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+//   apiCalls.postData(sleep1, 'sleep')
+//   .catch(err => console.log("Error in the sleep", err));
+
+//   let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+//   apiCalls.postData(hydration1, 'hydration')
+//   .catch(err => console.log("error in hydration", err));
+
+
 window.onload = generateStartingInformation()
 function generateStartingInformation() {
-  let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
-  apiCalls.postData(activity1, 'activity')
-    //.then(response => console.log("This is the response on scripts side", response))
-    //.then(json => console.log("This is the JSON parsed", json))
-    .catch(err => console.log("error in the activitiy", err));
-
-    let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
-  apiCalls.postData(sleep1, 'sleep')
-  .catch(err => console.log("Error in the sleep", err));
-
-  let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
-  apiCalls.postData(hydration1, 'hydration')
-  .catch(err => console.log("error in hydration", err));
-
-
   apiCalls.retrieveData()
     .then((promise) => {
       let userData = promise[0].userData
       let hydrationData = promise[1].hydrationData
       let sleepData = promise[2].sleepData
       let activityData = promise[3].activityData
-      fitlitData[0] = userData;
-      fitlitData[1] = hydrationData;
-      fitlitData[2] = sleepData;
-      fitlitData[3] = activityData;
-      console.log(fitlitData);
+      //       fitlitData[0] = userData;
+      //       fitlitData[1] = hydrationData;
+      //       fitlitData[2] = sleepData;
+      //       fitlitData[3] = activityData;
+      //       console.log(fitlitData);
+      //     })
+      // }  
+      let userList = [];
+      // makeUsers(userData);
+      let userRepo =  new UserRepo(userList);
+      let hydrationRepo = new Hydration(hydrationData);
+      let sleepRepo = new Sleep(sleepData);
+      let activityRepo = new Activity(activityData);
+      startApp(userRepo, hydrationRepo, sleepRepo, activityRepo)
     })
 }
+
+
+
+
+
 
 // let realUserData = [];
 // window.addEventListener('load', function() {
@@ -94,14 +109,10 @@ function generateStartingInformation() {
 //     .catch( err => console.log(err))
 // })
 
-function startApp() {
-  //console.log(getUsers);
-  let userList = [];
-  makeUsers(userList);
-  let userRepo = new UserRepo(userList);
-  let hydrationRepo = new Hydration(hydrationData);
-  let sleepRepo = new Sleep(sleepData);
-  let activityRepo = new Activity(activityData);
+function startApp(userRepo, hydrationRepo, sleepRepo, activityRepo) {
+  // let userList = [];
+  // makeUsers(userList);
+  // let userRepo = new UserRepo(userList);
   var userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
   let today = makeToday(userRepo, userNowId, hydrationData);
@@ -114,6 +125,7 @@ function startApp() {
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
 }
+
 
 function makeUsers(array) {
   userData.forEach(function(dataItem) {
