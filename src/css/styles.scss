@@ -78,20 +78,13 @@ main {
 .horizontal-card {
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .vertical-card {
   flex-direction: row;
-  overflow: scroll;
-}
-
-.horizontalCard-activity-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-  overflow: scroll;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .card {
@@ -101,10 +94,9 @@ main {
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-align: center;
   padding: 2%;
-  width: 50%;
+  width: 80%;
 }
 
 .hydration-card {
