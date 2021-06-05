@@ -63,10 +63,10 @@ class UserRepo {
   rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod) {
     let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
     return Object.keys(sortedObjectKeys).sort((b, a) => {
-      return (sortedObjectKeys[a].reduce(function(sumSoFar, sleepQualityValue) {
+      return (sortedObjectKeys[a].reduce((sumSoFar, sleepQualityValue) => {
         sumSoFar += sleepQualityValue
         return sumSoFar;
-      }, 0) / sortedObjectKeys[a].length) - (sortedObjectKeys[b].reduce(function(sumSoFar, sleepQualityValue) {
+      }, 0) / sortedObjectKeys[a].length) - (sortedObjectKeys[b].reduce((sumSoFar, sleepQualityValue) => {
         sumSoFar += sleepQualityValue
         return sumSoFar;
       }, 0) / sortedObjectKeys[b].length)
@@ -79,7 +79,7 @@ class UserRepo {
     return rankedUsersAndAverages.map(rankedUser => {
       rankedUser = {
         [rankedUser]: sortedObjectKeys[rankedUser].reduce(
-          function(sumSoFar, sleepQualityValue) {
+          (sumSoFar, sleepQualityValue) => {
             sumSoFar += sleepQualityValue
             return sumSoFar;
           }, 0) / sortedObjectKeys[rankedUser].length
