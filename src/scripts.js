@@ -9,11 +9,16 @@ import hydrationData from './data/hydration';
 import sleepData from './data/sleep';
 import activityData from './data/activity';
 
+// import { getUsers } from './webAPI';/
+// import  postData  from './webAPI';
+
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
+
+import apiCalls from './webAPI';
 
 var sidebarName = document.getElementById('sidebarName');
 var stepGoalCard = document.getElementById('stepGoalCard');
@@ -48,7 +53,49 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
+let fitlitData = [];
+
+window.onload = generateStartingInformation()
+function generateStartingInformation() {
+  let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+  apiCalls.postData(activity1, 'activity')
+    //.then(response => console.log("This is the response on scripts side", response))
+    //.then(json => console.log("This is the JSON parsed", json))
+    .catch(err => console.log("error in the activitiy", err));
+
+    let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+  apiCalls.postData(sleep1, 'sleep')
+  .catch(err => console.log("Error in the sleep", err));
+
+  let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+  apiCalls.postData(hydration1, 'hydration')
+  .catch(err => console.log("error in hydration", err));
+
+
+  apiCalls.retrieveData()
+    .then((promise) => {
+      let userData = promise[0].userData
+      let hydrationData = promise[1].hydrationData
+      let sleepData = promise[2].sleepData
+      let activityData = promise[3].activityData
+      fitlitData[0] = userData;
+      fitlitData[1] = hydrationData;
+      fitlitData[2] = sleepData;
+      fitlitData[3] = activityData;
+      console.log(fitlitData);
+    })
+}
+
+// let realUserData = [];
+// window.addEventListener('load', function() {
+//   getUsers()
+//     .then(response => response.JSON())
+//     .then(data => console.log('^^^^^^^^^^>>>>>>>>>>>>', data))
+//     .catch( err => console.log(err))
+// })
+
 function startApp() {
+  //console.log(getUsers);
   let userList = [];
   makeUsers(userList);
   let userRepo = new UserRepo(userList);
@@ -81,7 +128,7 @@ function pickUser() {
 
 function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
-};
+}
 
 
 function addInfoToSidebar(user, userStorage) {
@@ -93,13 +140,13 @@ function addInfoToSidebar(user, userStorage) {
   userEmail.innerText = user.email;
   userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
-};
+}
 
 function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
 }
 
-function makeWinnerID(activityInfo, user, dateString, userStorage){
+function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage)
 }
 
@@ -128,7 +175,7 @@ function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
   sleepToday.insertAdjacentHTML("afterBegin", `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
   sleepQualityToday.insertAdjacentHTML("afterBegin", `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
-  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>out of 5.</p>`);
+  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`);
   sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
   sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
 }
