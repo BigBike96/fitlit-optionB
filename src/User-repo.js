@@ -38,19 +38,19 @@ class UserRepo {
   }
 
   chooseWeekDataForAllUsers(dataSet, date) {
-    return dataSet.filter(function(dataItem) {
+    return dataSet.filter((dataItem) => {
       return (new Date(date)).setDate((new Date(date)).getDate() - 7) <= new Date(dataItem.date) && new Date(dataItem.date) <= new Date(date)
     })
   }
 
   chooseDayDataForAllUsers(dataSet, date) {
-    return dataSet.filter(function(dataItem) {
+    return dataSet.filter((dataItem) => {
       return dataItem.date === date
     });
   }
 
   isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod) {
-    return listFromMethod.reduce(function(objectSoFar, dataItem) {
+    return listFromMethod.reduce((objectSoFar, dataItem) => {
       if (!objectSoFar[dataItem.userID]) {
         objectSoFar[dataItem.userID] = [dataItem[relevantData]]
       } else {
@@ -62,7 +62,7 @@ class UserRepo {
 
   rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod) {
     let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
-    return Object.keys(sortedObjectKeys).sort(function(b, a) {
+    return Object.keys(sortedObjectKeys).sort((b, a) => {
       return (sortedObjectKeys[a].reduce(function(sumSoFar, sleepQualityValue) {
         sumSoFar += sleepQualityValue
         return sumSoFar;
@@ -76,7 +76,7 @@ class UserRepo {
   combineRankedUserIDsAndAveragedData(dataSet, date, relevantData, listFromMethod) {
     let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
     let rankedUsersAndAverages = this.rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod)
-    return rankedUsersAndAverages.map(function(rankedUser) {
+    return rankedUsersAndAverages.map(rankedUser => {
       rankedUser = {
         [rankedUser]: sortedObjectKeys[rankedUser].reduce(
           function(sumSoFar, sleepQualityValue) {
