@@ -10,12 +10,15 @@ import sleepData from './data/sleep';
 import activityData from './data/activity';
 
 // import { getUsers } from './webAPI';/
+// import  postData  from './webAPI';
 
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
+
+import apiCalls from './webAPI';
 
 var sidebarName = document.getElementById('sidebarName');
 var stepGoalCard = document.getElementById('stepGoalCard');
@@ -67,6 +70,38 @@ var streakListMinutes = document.getElementById('streakListMinutes')
 //       fitlitData[3] = activityData;
 //     })
 // }
+let fitlitData = [];
+
+window.onload = generateStartingInformation()
+function generateStartingInformation() {
+  let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+  apiCalls.postData(activity1, 'activity')
+    //.then(response => console.log("This is the response on scripts side", response))
+    //.then(json => console.log("This is the JSON parsed", json))
+    .catch(err => console.log("error in the activitiy", err));
+
+  let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+  apiCalls.postData(sleep1, 'sleep')
+    .catch(err => console.log("Error in the sleep", err));
+
+  let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+  apiCalls.postData(hydration1, 'hydration')
+    .catch(err => console.log("error in hydration", err));
+
+
+  apiCalls.retrieveData()
+    .then((promise) => {
+      let userData = promise[0].userData
+      let hydrationData = promise[1].hydrationData
+      let sleepData = promise[2].sleepData
+      let activityData = promise[3].activityData
+      fitlitData[0] = userData;
+      fitlitData[1] = hydrationData;
+      fitlitData[2] = sleepData;
+      fitlitData[3] = activityData;
+      console.log(fitlitData);
+    })
+}
 
 // let realUserData = [];
 // window.addEventListener('load', function() {

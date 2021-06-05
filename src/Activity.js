@@ -1,3 +1,5 @@
+import { finder } from "./util";
+
 class Activity {
   constructor(activityData) {
     this.activityData = activityData
@@ -7,8 +9,9 @@ class Activity {
     return parseFloat(((userStepsByDate.numSteps * userRepo.strideLength) / 5280).toFixed(1));
   }
   getActiveMinutesByDate(id, date) {
-    let userActivityByDate = this.activityData.find(data => id === data.userID && date === data.date);
-    return userActivityByDate.minutesActive;
+    // let userActivityByDate = this.activityData.find(data => id === data.userID && date === data.date);
+    return finder(this.activityData, id, date).minutesActive
+    // return userActivityByDate.minutesActive;
   }
   calculateActiveAverageForWeek(id, date, userRepo) {
     return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
