@@ -86,13 +86,13 @@ function generateStartingInformation() {
       //       console.log(fitlitData);
       //     })
       // }  
-      let userList = [];
+      // let userList = [];
       // makeUsers(userData);
-      let userRepo =  new UserRepo(userList);
-      let hydrationRepo = new Hydration(hydrationData);
-      let sleepRepo = new Sleep(sleepData);
-      let activityRepo = new Activity(activityData);
-      startApp(userRepo, hydrationRepo, sleepRepo, activityRepo)
+      // let userRepo =  new UserRepo(userList);
+      // let hydrationRepo = new Hydration(hydrationData);
+      // let sleepRepo = new Sleep(sleepData);
+      // let activityRepo = new Activity(activityData);
+      // startApp(userRepo, hydrationRepo, sleepRepo, activityRepo)
     })
 }
 
@@ -109,10 +109,10 @@ function generateStartingInformation() {
 //     .catch( err => console.log(err))
 // })
 
-function startApp(userRepo, hydrationRepo, sleepRepo, activityRepo) {
-  // let userList = [];
-  // makeUsers(userList);
-  // let userRepo = new UserRepo(userList);
+function startApp() {
+  let userList = [];
+  makeUsers(userList);
+  let userRepo = new UserRepo(userList);
   var userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
   let today = makeToday(userRepo, userNowId, hydrationData);
