@@ -52,6 +52,8 @@ const hydrationTodayCard = document.querySelector('#hydrationTodayCard');
 const hydrationHistoryCard = document.querySelector('#hydrationHistoryCard');
 const activityTodayCard = document.querySelector('#activityTodayCard');
 const activityHistoryCard = document.querySelector('#activityHistoryCard');
+const sleepTodayCard = document.querySelector('#sleepTodayCard');
+const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
 function startApp() {
   let userList = [];
@@ -87,7 +89,6 @@ function pickUser() {
 function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
 };
-
 
 function addInfoToSidebar(user, userStorage) {
   sidebarName.innerText = user.name;
@@ -144,11 +145,26 @@ function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
 }
 
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
-  sleepToday.insertAdjacentHTML("afterBegin", `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
-  sleepQualityToday.insertAdjacentHTML("afterBegin", `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
-  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>out of 5.</p>`);
-  sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
-  sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
+  sleepTodayCard.insertAdjacentHTML('afterBegin', `<article class="card sleep-card">
+    <p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>
+  </article>
+  <article class="card sleep-card">
+    <p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>
+  </article>
+  <article class="card sleep-card">
+    <p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>out of 5.</p>
+  </article>`);
+  sleepHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card sleep-card">
+    <p>Hours of sleep this week</p>
+    <ul class="card-list" id="sleepThisWeek">
+    ${makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage))}
+    </ul>
+  </article>
+  <article class="card sleep-card">
+    <ul class="card-list" id="sleepEarlierWeek">
+      ${makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage))}
+    </ul>
+  </article>`);
 }
 
 function makeSleepHTML(id, sleepInfo, userStorage, method) {
