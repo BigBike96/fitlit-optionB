@@ -85,11 +85,6 @@ function generateStartingInformation() {
     })
 }
 
-
-
-
-
-
 // let realUserData = [];
 // window.addEventListener('load', function() {
 //   getUsers()
