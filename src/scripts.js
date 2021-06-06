@@ -11,11 +11,11 @@ import sleepData from './data/sleep';
 import activityData from './data/activity';
 
 // classes
-import User from './User';
-import Activity from './Activity';
-import Hydration from './Hydration';
-import Sleep from './Sleep';
-import UserRepo from './User-repo';
+import User from './classes/User';
+import Activity from './classes/Activity';
+import Hydration from './classes/Hydration';
+import Sleep from './classes/Sleep';
+import UserRepo from './classes//User-repo';
 
 // querySelectors
 const sidebarName = document.getElementById('sidebarName');
