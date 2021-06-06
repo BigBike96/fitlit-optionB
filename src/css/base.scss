@@ -57,15 +57,15 @@ main {
     padding: 0.5em;
     width: 90%;
   }
-}
 
-.sidebar-image {
-  border-radius: 50%;
-  border: 1px solid $border-color;
-  height: 200px;
-  width: 200px;
-  margin: 4px 2px 2px 2px;
-  justify-content: center;
+  img {
+    border-radius: 50%;
+    border: 1px solid $border-color;
+    height: 200px;
+    width: 200px;
+    margin: 4px 2px 2px 2px;
+    justify-content: center;
+  }
 }
 
 .info-container {
