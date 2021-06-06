@@ -42,10 +42,11 @@ const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 window.onload = () => {
   apiCalls.retrieveData()
     .then((promise) => {
-      let userData = new UserRepo (promise[0].userData.map((user) =>  new UserRepo(user)))
+      let userData = new UserRepo (promise[0].userData.map((user) => new UserRepo(user))).users
       let hydrationData = new Hydration(promise[1].hydrationData)
       let sleepData = new Sleep(promise[2].sleepData)
       let activityData = new Activity (promise[3].activityData)
+
       startApp(userData, hydrationData, sleepData, activityData);
     }) 
 
@@ -67,12 +68,12 @@ function startApp(userRepo, hydrationRepo, sleepRepo, activityRepo) {
 }
 
 
-function makeUsers(array) {
-  userData.forEach(function(dataItem) {
-    let user = new User(dataItem);
-    array.push(user);
-  })
-}
+// function makeUsers(array) {
+//   userData.forEach(function(dataItem) {
+//     let user = new User(dataItem);
+//     array.push(user);
+//   })
+// }
 
 
 function pickUser() {
@@ -80,7 +81,7 @@ function pickUser() {
 }
 
 function getUserById(id, listRepo) {
-  return listRepo.getDataFromID(id);
+  return listRepo[id];
 }
 
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
