@@ -12,7 +12,7 @@ class Activity {
     return finder(this.activityData, id, date).minutesActive
   }
   calculateActiveAverageForWeek(id, date, userRepo) {
-    return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
+    return cactiveAverage = parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
       return acc += elem.minutesActive;
     }, 0) / 7).toFixed(1));
   }
@@ -33,9 +33,12 @@ class Activity {
   // breaks tests, but gets rid of some decimals. The values are good
   getAllUserAverageForDay(date, userRepo, relevantData) {
     let selectedDayData = userRepo.chooseDayDataForAllUsers(this.activityData, date);
-    const average = averager(selectedDayData, relevantData).toFixed(1)
-    return parseInt(average)
-    // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[relevantData], 0) / selectedDayData.length).toFixed(1));
+
+     // const average =
+     return parseFloat(averager(selectedDayData, relevantData).toFixed(1))
+    // return parseInt(average)
+
+     // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[relevantData], 0) / selectedDayData.length).toFixed(1));
   }
   userDataForToday(id, date, userRepo, relevantData) {
     let userData = userRepo.getDataFromUserID(id, this.activityData);
@@ -56,11 +59,13 @@ class Activity {
       return arraySoFar.concat(listItem);
     }, []);
   }
+
   getFriendsAverageStepsForWeek(user, date, userRepo) {
     let friendsActivity = this.getFriendsActivity(user, userRepo);
     let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
     return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
   }
+
   showChallengeListAndWinner(user, date, userRepo) {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
 
@@ -70,11 +75,15 @@ class Activity {
       return `${userName}: ${listItem[userID]}`
     })
   }
+
   showcaseWinner(user, date, userRepo) {
     let namedList = this.showChallengeListAndWinner(user, date, userRepo);
     let winner = this.showChallengeListAndWinner(user, date, userRepo).shift();
+
+    console.log('winner>>>>>>>>>>', winner);
     return winner;
   }
+
   getStreak(userRepo, id, relevantData) {
     let data = this.activityData;
     let sortedUserArray = (userRepo.makeSortedUserArray(id, data)).reverse();
@@ -87,6 +96,7 @@ class Activity {
       return streak.date;
     })
   }
+
   getWinnerId(user, date, userRepo) {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
     let keysList = rankedList.map(listItem => Object.keys(listItem));
