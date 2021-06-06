@@ -21,7 +21,6 @@ class Hydration {
   calculateRandomWeekOunces(date, id, userRepo) {
     return findDataByDate(date, id, this.hydrationData, userRepo, 'numOunces');
   }
-
 }
 
 export default Hydration;
