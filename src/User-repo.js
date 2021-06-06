@@ -6,11 +6,11 @@ class UserRepo {
   }
 
   getDataFromID(id) {
-    return this.users.find((user) => id === user.id);
+    return this.users.find(user => id === user.id);
   }
 
   getDataFromUserID(id, dataSet) {
-    return dataSet.filter((userData) => id === userData.userID);
+    return dataSet.filter(userData => id === userData.userID);
   }
 
   calculateAverageStepGoal() {
