@@ -6,9 +6,9 @@ import apiCalls from './webAPI';
 
 // hard data
 import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
+// import hydrationData from './data/hydration';
+// import sleepData from './data/sleep';
+// import activityData from './data/activity';
 
 // classes
 import User from './classes/User';
@@ -41,23 +41,23 @@ const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
 //  global variables
 let fitlitData = []
-let userDataz = fitlitData[0]
-let hydrationDataz = fitlitData[1]
-let sleepDataz = fitlitData[2]
-let activityDataz = fitlitData[3]
+
 console.log(fitlitData)
 
 // start application 
 window.onload = () => {
   apiCalls.retrieveData()
     .then((promise) => {
-      fitlitData = [promise[0].userData, promise[1].hydrationData, promise[2].sleepData, promise[3].activityData]
+      let userData = promise[0].userData
+      let hydrationData = promise[1].hydrationData
+      let sleepData = promise[2].sleepData
+      let activityData = promise[3].activityData
+      startApp(userData, hydrationData, sleepData, activityData);
     }) 
-  startApp(userDataz, hydrationDataz, sleepDataz, activityDataz);
 
 }
 
-function startApp(user, hydration, sleep, activity) {
+function startApp(userData, hydrationData, sleepData, activityData) {
   let userList = [];
   makeUsers(userList);
   let userRepo = new UserRepo(userList);
