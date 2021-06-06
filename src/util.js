@@ -1,4 +1,3 @@
-// export const averager = (array, key) => array.reduce((acc, data) => acc += data[key], 0) / array.length;
 
 export const averager = (array, key) => {
   if (key !== undefined) {
