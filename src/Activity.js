@@ -1,4 +1,4 @@
-import { finder } from "./util";
+import { finder, averager } from "./util";
 
 class Activity {
   constructor(activityData) {
@@ -29,9 +29,13 @@ class Activity {
   getStairRecord(id) {
     return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
   }
+
+  // breaks tests, but gets rid of some decimals. The values are good
   getAllUserAverageForDay(date, userRepo, relevantData) {
     let selectedDayData = userRepo.chooseDayDataForAllUsers(this.activityData, date);
-    return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[relevantData], 0) / selectedDayData.length).toFixed(1));
+    const average = averager(selectedDayData, relevantData).toFixed(1)
+    return parseInt(average)
+    // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[relevantData], 0) / selectedDayData.length).toFixed(1));
   }
   userDataForToday(id, date, userRepo, relevantData) {
     let userData = userRepo.getDataFromUserID(id, this.activityData);
