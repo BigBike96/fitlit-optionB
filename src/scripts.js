@@ -38,12 +38,6 @@ const activityHistoryCard = document.querySelector('#activityHistoryCard');
 const sleepTodayCard = document.querySelector('#sleepTodayCard');
 const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
-
-//  global variables
-let fitlitData = []
-
-console.log(fitlitData)
-
 // start application 
 window.onload = () => {
   apiCalls.retrieveData()
