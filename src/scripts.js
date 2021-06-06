@@ -1,6 +1,8 @@
-import './css/base.scss';
-import './css/styles.scss';
+/* eslint-disable max-len */
+// import './css/base.scss';
+// import './css/styles.scss';
 
+// import './images/the-rock.jpg'
 
 import userData from './data/users';
 import hydrationData from './data/hydration';
@@ -36,27 +38,36 @@ const activityHistoryCard = document.querySelector('#activityHistoryCard');
 const sleepTodayCard = document.querySelector('#sleepTodayCard');
 const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
-let fitlitData = [];
 
 
+let fitlitData = []
+let userDataz = fitlitData[0]
+let hydrationDataz = fitlitData[1]
+let sleepDataz = fitlitData[2]
+let activityDataz = fitlitData[3]
+
+console.log(fitlitData)
 window.onload = generateStartingInformation()
 function generateStartingInformation() {
-  let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
-  apiCalls.postData(activity1, 'activity')
+  // let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+  // apiCalls.postData(activity1, 'activity')
 
-  let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
-  apiCalls.postData(sleep1, 'sleep')
+  // let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+  // apiCalls.postData(sleep1, 'sleep')
 
-  let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
-  apiCalls.postData(hydration1, 'hydration')
+  // let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+  // apiCalls.postData(hydration1, 'hydration')
 
   apiCalls.retrieveData()
     .then((promise) => {
       fitlitData = [promise[0].userData, promise[1].hydrationData, promise[2].sleepData, promise[3].activityData]
     }) 
+
+  startApp(userDataz, hydrationDataz, sleepDataz, activityDataz);
+
 }
 
-function startApp() {
+function startApp(user, hydration, sleep, activity) {
   let userList = [];
   makeUsers(userList);
   let userRepo = new UserRepo(userList);
@@ -155,7 +166,7 @@ function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
     <p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>
   </article>
   <article class="card sleep-card">
-    <p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>out of 5.</p>
+    <p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>
   </article>`);
   sleepHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card sleep-card">
     <p>Hours of sleep this week</p>
@@ -251,4 +262,3 @@ function makeStepStreakHTML(id, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
 
-startApp();
