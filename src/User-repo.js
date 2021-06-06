@@ -57,37 +57,41 @@ class UserRepo {
     }, {});
   }
 
-  rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod) {
-    let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
-    return Object.keys(sortedObjectKeys).sort((b, a) => {
-
-      return averager(sortedObjectKeys[a], 'sleepQualityValue')
-
-      // return (sortedObjectKeys[a].reduce((sumSoFar, sleepQualityValue) => {
-      //   sumSoFar += sleepQualityValue
-      //   return sumSoFar;
-      // }, 0) / sortedObjectKeys[a].length)
-
-      - (sortedObjectKeys[b].reduce((sumSoFar, sleepQualityValue) => {
-        sumSoFar += sleepQualityValue
-        return sumSoFar;
-      }, 0) / sortedObjectKeys[b].length)
-
-    });
-  }
-
   // rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod) {
   //   let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
   //   return Object.keys(sortedObjectKeys).sort((b, a) => {
+  //
+  //     // return averager(sortedObjectKeys[a], 'sleepQualityValue')
+  //
+  //
   //     return (sortedObjectKeys[a].reduce((sumSoFar, sleepQualityValue) => {
   //       sumSoFar += sleepQualityValue
   //       return sumSoFar;
-  //     }, 0) / sortedObjectKeys[a].length) - (sortedObjectKeys[b].reduce((sumSoFar, sleepQualityValue) => {
+  //     }, 0) / sortedObjectKeys[a].length)
+  //
+  //     -
+  //     // return averager(sortedObjectKeys[b], 'sleepQualityValue')
+  //     console.log(sortedObjectKeys[b]);
+  //     (sortedObjectKeys[b].reduce((sumSoFar, sleepQualityValue) => {
   //       sumSoFar += sleepQualityValue
   //       return sumSoFar;
   //     }, 0) / sortedObjectKeys[b].length)
+  //
   //   });
   // }
+
+  rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod) {
+    let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
+    return Object.keys(sortedObjectKeys).sort((b, a) => {
+      return (sortedObjectKeys[a].reduce((sumSoFar, sleepQualityValue) => {
+        sumSoFar += sleepQualityValue
+        return sumSoFar;
+      }, 0) / sortedObjectKeys[a].length) - (sortedObjectKeys[b].reduce((sumSoFar, sleepQualityValue) => {
+        sumSoFar += sleepQualityValue
+        return sumSoFar;
+      }, 0) / sortedObjectKeys[b].length)
+    });
+  }
 
   combineRankedUserIDsAndAveragedData(dataSet, date, relevantData, listFromMethod) {
     let sortedObjectKeys = this.isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod)
