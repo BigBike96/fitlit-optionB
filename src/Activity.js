@@ -6,7 +6,7 @@ class Activity {
   }
 
   getMilesFromStepsByDate(id, date, userRepo) {
-    let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
+    let userStepsByDate = finder(this.activityData, id, date)
     return parseFloat(((userStepsByDate.numSteps * userRepo.strideLength) / 5280).toFixed(1));
   }
 
