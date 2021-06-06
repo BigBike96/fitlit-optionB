@@ -1,4 +1,4 @@
-import { finder, averager } from "./util";
+import { finder, averager, findDataByDate } from "./util";
 
 class Activity {
   constructor(activityData) {
@@ -21,7 +21,7 @@ class Activity {
   }
 
   accomplishStepGoal(id, date, userRepo) {
-    let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
+    let userStepsByDate = finder(this.activityData, id, date);
     if (userStepsByDate.numSteps === userRepo.dailyStepGoal) {
       return true;
     }
@@ -36,15 +36,9 @@ class Activity {
     return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
   }
 
-  // breaks tests, but gets rid of some decimals. The values are good
   getAllUserAverageForDay(date, userRepo, relevantData) {
     let selectedDayData = userRepo.chooseDayDataForAllUsers(this.activityData, date);
-
-     // const average =
-     return parseFloat(averager(selectedDayData, relevantData).toFixed(1))
-    // return parseInt(average)
-
-     // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[relevantData], 0) / selectedDayData.length).toFixed(1));
+     return parseFloat(averager(selectedDayData, relevantData).toFixed(1));
   }
 
   userDataForToday(id, date, userRepo, relevantData) {
@@ -52,11 +46,10 @@ class Activity {
     return userData.find(data => data.date === date)[relevantData];
   }
 
-  userDataForWeek(id, date, userRepo, releventData) {
-    return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[releventData]}`);
+  userDataForWeek(id, date, userRepo, relevantData) {
+    return findDataByDate(date, id, this.activityData, userRepo, relevantData);
   }
 
-  // Friends
 
   getFriendsActivity(user, userRepo) {
     let data = this.activityData;
@@ -85,7 +78,7 @@ class Activity {
   }
 
   showcaseWinner(user, date, userRepo) {
-    let namedList = this.showChallengeListAndWinner(user, date, userRepo);
+    // let namedList = this.showChallengeListAndWinner(user, date, userRepo);
     let winner = this.showChallengeListAndWinner(user, date, userRepo).shift();
 
     console.log('winner>>>>>>>>>>', winner);
