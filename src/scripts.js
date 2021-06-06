@@ -42,22 +42,17 @@ const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 window.onload = () => {
   apiCalls.retrieveData()
     .then((promise) => {
-      let userData = promise[0].userData
-      let hydrationData = promise[1].hydrationData
-      let sleepData = promise[2].sleepData
-      let activityData = promise[3].activityData
+      let userData = new UserRepo (promise[0].userData.map((user) =>  new UserRepo(user)))
+      let hydrationData = new Hydration(promise[1].hydrationData)
+      let sleepData = new Sleep(promise[2].sleepData)
+      let activityData = new Activity (promise[3].activityData)
       startApp(userData, hydrationData, sleepData, activityData);
     }) 
 
 }
 
-function startApp(userData, hydrationData, sleepData, activityData) {
-  let userList = [];
-  makeUsers(userList);
-  let userRepo = new UserRepo(userList);
-  let hydrationRepo = new Hydration(hydrationData);
-  let sleepRepo = new Sleep(sleepData);
-  let activityRepo = new Activity(activityData);
+function startApp(userRepo, hydrationRepo, sleepRepo, activityRepo) {
+  let hydrationData = hydrationRepo
   var userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
   let today = makeToday(userRepo, userNowId, hydrationData);
@@ -78,6 +73,7 @@ function makeUsers(array) {
     array.push(user);
   })
 }
+
 
 function pickUser() {
   return Math.floor(Math.random() * 50);
