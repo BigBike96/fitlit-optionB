@@ -12,7 +12,7 @@ class Activity {
     return finder(this.activityData, id, date).minutesActive
   }
   calculateActiveAverageForWeek(id, date, userRepo) {
-    return cactiveAverage = parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
+    return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
       return acc += elem.minutesActive;
     }, 0) / 7).toFixed(1));
   }
