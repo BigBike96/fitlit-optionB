@@ -1,5 +1,5 @@
 import sleepData from './data/sleep';
-import { averager, finder} from './util';
+import { averager, finder, findDataByDate } from './util';
 
 class Sleep {
   constructor(sleepData) {
@@ -25,7 +25,7 @@ class Sleep {
   }
 
   calculateWeekSleep(date, id, userRepo) {
-    return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
+     return findDataByDate(date, id, this.sleepData, userRepo, 'hoursSlept');
   }
 
   calculateWeekSleepQuality(date, id, userRepo) {
