@@ -56,15 +56,15 @@ function startApp(userRepo, hydrationRepo, sleepRepo, activityRepo) {
   let hydrationData = hydrationRepo
   var userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
-  let today = makeToday(userRepo, userNowId, hydrationData);
-  let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData);
-  historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
-  addInfoToSidebar(userNow, userRepo);
-  addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
-  addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
-  let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
-  addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
-  addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
+  // let today = makeToday(userRepo, userNowId, hydrationData);
+  // let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData);
+  // historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
+  // addInfoToSidebar(userNow, userRepo);
+  // addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
+  // addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
+  // let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
+  // addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
+  // addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
 }
 
 
@@ -84,19 +84,23 @@ function getUserById(id, listRepo) {
   return listRepo[id];
 }
 
+// function makeToday(userStorage, id, dataSet) {
+//   console.log(userStorage)
+//   var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
+//   return sortedArray[0].date;
+// }
+
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage)
 }
 
-function makeToday(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
-  return sortedArray[0].date;
-}
 
-function makeRandomDate(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
-  return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date
-}
+
+// function makeRandomDate(userStorage, id, dataSet) {
+//   var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
+//   return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date
+// }
+
 // maybe script maybe dom
 function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
