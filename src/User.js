@@ -12,7 +12,7 @@ class User {
   getFirstName() {
     return this.name.split(' ', 1).join();
   }
-  
+
   getFriendsNames(userStorage) {
     return this.friends.map((friendId) => (userStorage.getDataFromID(friendId).name));
   }

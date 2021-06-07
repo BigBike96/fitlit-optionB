@@ -57,20 +57,25 @@ describe('User', () => {
     expect(user1).to.be.an.instanceof(User);
   });
 
-  it('should take a user data object', () => {
+  it('should have a user name', () => {
 
-    expect(user1.id).to.equal(1);
     expect(user1.name).to.equal("Alex Roth");
   });
 
-  it('should take a different user data object', () => {
+  it('should have a different user name', () => {
 
     expect(user2.id).to.equal(2);
     expect(user2.name).to.equal("Allie McCarthy");
   });
 
-  it.skip('should have an id', () => {
+  it('should have an id', () => {
 
+    expect(user1.id).to.equal(1);
+  });
+
+  it('should have a user address', () => {
+    console.log(user1.address);
+    expect(user1.address).to.equal('1234 Turing Street, Denver CO 80301-1697');
   });
 
   it('should return user first name', () => {
