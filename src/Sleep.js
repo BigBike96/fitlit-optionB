@@ -25,7 +25,7 @@ class Sleep {
   }
 
   calculateWeekSleep(date, id, userRepo) {
-     return findDataByDate(date, id, this.sleepData, userRepo, 'hoursSlept');
+    return findDataByDate(date, id, this.sleepData, userRepo, 'hoursSlept');
   }
 
   calculateWeekSleepQuality(date, id, userRepo) {
