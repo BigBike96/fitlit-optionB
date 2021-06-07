@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $primary-font;
   background-color: $primary-background;
   height: auto;
 }
@@ -33,7 +33,7 @@ main {
   background-color: $sidebar-background;
   border: $border;
   @include flexed-element(column);
-  font-family: sans-serif;
+  font-family: $secondary-font;
   font-size: 1.2em;
   font-weight: bold;
   height: 100%;
@@ -55,7 +55,6 @@ main {
     border: $border;
     height: 200px;
     width: 200px;
-    margin: 4px 2px 2px 2px;
     justify-content: center;
   }
 }
@@ -93,7 +92,7 @@ main {
   height: auto;
   font-size: 1.25em;
   margin: .5em;
-  font-family: sans-serif;
+  font-family: $secondary-font;
   @include flexed-element(column);
   text-align: center;
   padding: 2%;
@@ -127,7 +126,7 @@ main {
 .card-list {
   list-style-type: none;
   font-weight: normal;
-  font-family: sans-serif;
+  font-family: $secondary-font;
   font-style: italic;
   padding: 1em;
   font-size: 1em;
