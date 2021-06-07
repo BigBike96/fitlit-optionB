@@ -74,8 +74,13 @@ describe('User', () => {
   });
 
   it('should have a user address', () => {
-    console.log(user1.address);
+
     expect(user1.address).to.equal('1234 Turing Street, Denver CO 80301-1697');
+  });
+
+  it('should have a user email', () => {
+    
+    expect(user1.email).to.equal('alex.roth1@hotmail.com');
   });
 
   it('should return user first name', () => {
