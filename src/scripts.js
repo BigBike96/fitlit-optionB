@@ -54,7 +54,7 @@ function startApp(userData, userRepo, hydration, sleep, activityData) {
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
   addInfoToSidebar(currentUser, userRepo);
   addInfo(currentUserID, hydration, currentDate, userRepo, randomDate);
-  // addInfo(currentUserID, sleepData, currentDate, userRepo, randomDate);
+  addInfo(currentUserID, sleep, currentDate, userRepo, randomDate);
   // let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
   // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, userNow, winnerNow);
   // addFriendGameInfo(currentUser, activityRepo, userRepo, today, randomDate, userNow);
@@ -139,14 +139,14 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
 
   let data = dataSet.constructor.name
   let todayCard = eval(`${data.toLowerCase()}TodayCard`)
-  // let card = eval(`${data}HistoryCard`)
   let makeHtml = eval(`make${data}HTML`)
+
+  // let card = eval(`${data}HistoryCard`)
   // console.log(card)
   // todayCard === 'hydrationTodayCard' ? todayCard = hydrationTodayCard : 
   //   todayCard === 'activityTodayCard' ? todayCard = activityTodayCard :
   //     todayCard === sleepTodayCard
 
-  
   todayCard.insertAdjacentHTML('afterBegin', 
     `<article class="card hydration-card">
   <p>You drank</p>
