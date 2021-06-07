@@ -89,8 +89,13 @@ describe('User', () => {
   });
 
   it('should have a user daily step goal', () => {
-    
+
     expect(user4.dailyStepGoal).to.equal(7000);
+  });
+
+  it('should have an array of friend id numbers', () => {
+    console.log(user3.friends);
+    expect(user3.friends).to.deep.equal([1, 2, 4]);
   });
 
   it('should return user first name', () => {
