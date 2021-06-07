@@ -132,19 +132,10 @@ main {
   font-size: 1em;
 }
 
-@media only screen and (max-width: 1330px) {
-  main {
-    align-items: center;
-    @include flexed-element(column);
-  }
-
-  .sidebar {
-    width: 90%;
-  }
+@media only screen and (max-width: $medium-width-breakpoint) {
+  @include query-media($bool: true);
 }
 
-@media only screen and (max-width: 770px) {
-  .column {
-    @include flexed-element(column);
-  }
+@media only screen and (max-width: $small-width-breakpoint) {
+  @include query-media($bool: false);
 }

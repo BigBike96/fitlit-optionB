@@ -5,11 +5,33 @@ $card-background: #FFFFFF;
 $hydration-card: #5BC8AC;
 $activity-card: #DFE166;
 $sleep-card: #EC96A4;
+
 $border: 1px solid #000000;
+
 $primary-font: 'Open Sans', sans-serif;
 $secondary-font: sans-serif;
+
+$medium-width-breakpoint: 1330px;
+$small-width-breakpoint: 770px;
 
 @mixin flexed-element($direction) {
   display: flex;
   flex-direction: $direction;
+}
+
+@mixin query-media($bool) {
+  @if $bool == true {
+    main {
+      align-items: center;
+      @include flexed-element(column);
+    }
+
+    .sidebar {
+      width: 90%;
+    }
+  } @else if $bool == false {
+    .column {
+      @include flexed-element(column);
+    }
+  }
 }
