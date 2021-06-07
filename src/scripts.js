@@ -178,21 +178,25 @@ function addInfoToSidebar(user, userStorage) {
 function addHydrationInfo(id, hydrationData, dateString, userStorage, laterDateString) {
   const currentData = hydrationData[id]
   console.log(currentData)
-  hydrationTodayCard.insertAdjacentHTML('afterBegin', `<article class="card hydration-card">
-    <p>You drank</p><p><span class="number">${hydrationData.calculateDailyOunces(id, dateString)}</span></p><p>oz water today.</p>
-  </article>
-  <article class="card hydration-card">
-    <p>Your average water intake is</p><p><span class="number">${hydrationData.calculateAverageOunces(id)}</span></p> <p>oz per day.</p>
-  </article>`);
-  hydrationHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card hydration-card">
-    <p>Water intake this week:</p>
-    <ul class="card-list" id="hydrationThisWeek">
-      ${makeHydrationHTML(id, hydrationData, userStorage, hydrationData.calculateFirstWeekOunces(userStorage, id))}
-    </ul>
-  </article>
-  <article class="card hydration-card">
-    <ul class="card-list" id="hydrationEarlierWeek">
-      ${makeHydrationHTML(id, hydrationData, userStorage, hydrationData.calculateRandomWeekOunces(laterDateString, id, userStorage))}
-    </ul>
-  </article>`);
+  hydrationTodayCard.insertAdjacentHTML('afterBegin', 
+    `<article class="card hydration-card">
+  <p>You drank</p>
+  <p><span class="number">${hydrationData.calculateDailyOunces(id, dateString)}</span></p>
+  <p>oz water today.</p>
+</article>
+<article class="card hydration-card">
+  <p>Your average water intake is</p>
+  <p><span class="number">${hydrationData.calculateAverageOunces(id)}</span></p>
+  <p>oz per day.</p>
+</article>`); hydrationHistoryCard.insertAdjacentHTML('afterBegin', `<article
+  class="card hydration-card">
+  <p>Water intake this week:</p>
+  <ul class="card-list" id="hydrationThisWeek"> ${makeHydrationHTML(id, hydrationData, userStorage,
+    hydrationData.calculateFirstWeekOunces(userStorage, id))} </ul>
+</article>
+<article class="card hydration-card">
+  <ul class="card-list" id="hydrationEarlierWeek"> ${makeHydrationHTML(id, hydrationData,
+    userStorage, hydrationData.calculateRandomWeekOunces(laterDateString, id, userStorage))} </ul>
+</article>`
+  );
 }
