@@ -141,13 +141,15 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
   
   let verb = "";
   let calculate = () => {};
-  //let 
+  let activityAmount = "";
+  let average = () => {};
 
   switch (data) {
   case Hydration: {
     verb = "drank";
     calculate = dataSet.calculateDailyOunces(id, dateString);
-
+    activityAmount = "oz water today.";
+    average = dataSet.calculateAverageOunces(id);
   }
     
     break;
@@ -167,19 +169,19 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
     `<article class="card ${smData}-card">
       <p>You ${verb}</p> 
       <p><span class="number">${calculate()}</span></p>
-      <p>oz water today.</p>
+      <p>${activityAmount}</p>
     </article>
-    <article class="card hydration-card">
+    <article class="card ${smData}-card">
       <p>Your average water intake is</p>
-      <p><span class="number">${dataSet.calculateAverageOunces(id)}</span></p>
-      <p>oz per day.</p>
+      <p><span class="number">${average}</span></p>
+      <p>${activityAmount}</p>
     </article>`);
   todayCard.insertAdjacentHTML('afterBegin', 
-    `<article class="card hydration-card">
+    `<article class="card ${smData}-card">
       <p>Water intake this week:</p>
       <ul class="card-list" id="hydrationThisWeek"> ${makeHtml(id, dataSet, userStorage, dataSet.calculateFirstWeekOunces(userStorage, id))} </ul>
     </article>
-    <article class="card hydration-card">
+    <article class="card ${smData}-card">
       <ul class="card-list" id="hydrationEarlierWeek"> ${makeHtml(id, dataSet, userStorage, dataSet.calculateRandomWeekOunces(laterDateString, id, userStorage))} </ul>
     </article>`
   );
