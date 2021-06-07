@@ -98,6 +98,11 @@ main {
   text-align: center;
   padding: 2%;
   width: 80%;
+
+  &:hover {
+    transform: scale(1.05);
+    transition-duration: 0.5s;
+  }
 }
 
 .hydration-card {
