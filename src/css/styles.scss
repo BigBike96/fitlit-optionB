@@ -1,139 +1,150 @@
-// * {
-//   margin: 0;
-// }
+@import './base.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: $primary-background;
+  height: auto;
+}
+
+h1 {
+  text-align: center;
+  color: $card-background;
+  height: 80px;
+  padding-top: 10px;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sidebar {
+  align-items: center;
+  background-color: $sidebar-background;
+  border: $border;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  height: 100%;
+  padding: 1%;
+  text-align: center;
+  width: 25%;
+}
+
+.sidebar {
+  h2, h3 {
+    border-bottom: $border;
+    margin: 0.5em;
+    padding: 0.5em;
+    width: 90%;
+  }
+
+  img {
+    border-radius: 50%;
+    border: $border;
+    height: 200px;
+    width: 200px;
+    margin: 4px 2px 2px 2px;
+    justify-content: center;
+  }
+}
+
+.info-container {
+  width: 100%;
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-card-container {
+  width: 100%;
+  background-color: $card-background;
+  border: $border;
+  display: flex;
+  margin: 1%;
+}
+
+.horizontal-card {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.vertical-card {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  height: auto;
+  font-size: 1.25em;
+  margin: .5em;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 2%;
+  width: 80%;
+}
+
+.hydration-card {
+  background-color: $hydration-card;
+}
+
+.sleep-card {
+  background-color: $sleep-card;
+}
+
+.activity-card {
+  background-color: $activity-card;
+}
+
+.number {
+  font-size: 2em;
+  font-weight: bolder;
+  color: $primary-background;
+  font-kerning: normal;
+}
+
+.card-list {
+  list-style-type: none;
+  font-weight: normal;
+  font-family: sans-serif;
+  font-style: italic;
+  padding: 1em;
+  font-size: 1em;
+}
+
+@media only screen and (max-width: 1330px) {
+  main {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 90%;
+  }
+}
+
+// @media only screen and (max-width: 770px) {
 //
-// body {
-//   font-family: 'Open Sans';
-//   background-color: #4d4e4f;
-//   height: auto;
-// }
-//
-// h1 {
-//   text-align: center;
-//   color: #ffffff;
-//   height: 80px;
-//   padding-top: 10px;
-// }
-//
-// main {
-//   display: flex;
-//   flex-direction: row;
-//   height: 2000px;
-// }
-//
-// .sidebar {
-//   align-items: center;
-//   background-color: #9A9DAB;
-//   border: 1px solid black;
-//   display: flex;
-//   flex-direction: column;
-//   font-family: sans-serif;
-//   font-size: 1.2em;
-//   font-weight: bold;
-//   height: 100%;
-//   padding: 1%;
-//   text-align: center;
-//   width: 25%;
-// }
-//
-// .sidebar h2, .sidebar h3 {
-//   border-bottom: 3px solid black;
-//   margin: 0.5em;
-//   padding: 0.5em;
-//   width: 90%;
-// }
-//
-// .sidebar-image {
-//   border-radius: 50%;
-//   border-color: black;
-//   border-style: solid;
-//   border-width: 1px;
-//   height: 200px;
-//   width: 200px;
-//   margin: 4px 2px 2px 2px;
-//   justify-content: center;
-// }
-//
-// .info-container {
-//   width: 100%;
-//   // min-width: 800px;
-//   margin: 1%;
-//   display: flex;
-//   flex-direction: column;
-// }
-//
-// .column {
-//   display: flex;
-//   flex-direction: row;
-// }
-//
-// .info-card-container {
-//   width: 100%;
-//   background-color: white;
-//   border: 1px solid black;
-//   display: flex;
-//   margin: 1%;
-// }
-//
-// .horizontal-card {
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-evenly;
-// }
-//
-// .vertical-card {
-//   flex-direction: row;
-//   flex-wrap: wrap;
-//   justify-content: space-evenly;
-// }
-//
-// .card {
-//   height: auto;
-//   font-size: 1.25em;
-//   margin: .5em;
-//   font-family: sans-serif;
-//   display: flex;
-//   flex-direction: column;
-//   text-align: center;
-//   padding: 2%;
-//   width: 80%;
-// }
-//
-// .hydration-card {
-//   background-color: #5BC8AC;
-// }
-//
-// .sleep-card {
-//   background-color: #EC96A4;
-// }
-//
-// .activity-card {
-//   background-color: #DFE166;
-// }
-//
-// .number {
-//   font-size: 2em;
-//   font-weight: bolder;
-//   color: #4d4e4f;
-//   font-kerning: normal;
-// }
-//
-// .card-list {
-//   list-style-type: none;
-//   font-weight: normal;
-//   font-family: sans-serif;
-//   font-style: italic;
-//   padding: 1em;
-//   font-size: 1em;
-// }
-//
-// @media only screen and (max-width: 1330px) {
-//   main {
-//     align-items: center;
-//     flex-direction: column;
-//   }
-//
-//   .sidebar {
-//     width: 90%;
-//   }
 // }
