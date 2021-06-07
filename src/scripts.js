@@ -78,13 +78,8 @@ function getRandomDate(date) {
 }
 
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
-
   return activityInfo.getWinnerId(user, dateString, userStorage)
-
 }
-
-
-
 
 // maybe script maybe dom
 function makeFriendHTML(user, userStorage) {
@@ -138,31 +133,56 @@ function addInfoToSidebar(user, userStorage) {
 function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
 
   let data = dataSet.constructor.name
-  let todayCard = eval(`${data.toLowerCase()}TodayCard`)
-  let makeHtml = eval(`make${data}HTML`)
+  // console.log(data);
+  let smData = data.toLowerCase();
 
+  let makeHtml = eval(`make${data}HTML`)
+  let todayCard = eval(`${smData}TodayCard`)
+  
+  let verb = "";
+  let calculate = () => {};
+  let activityAmount = "";
+  let average = () => {};
+
+  switch (data) {
+  case Hydration: {
+    verb = "drank";
+    calculate = dataSet.calculateDailyOunces(id, dateString);
+    activityAmount = "oz water today.";
+    average = dataSet.calculateAverageOunces(id);
+  }
+    
+    break;
+  case Sleep:
+    //code block
+    break;
+  case Activity:
+    //code block
+    break;
+  
+  default:
+    break;
+  }
+
+  //you drank, you slept, and you walked
   todayCard.insertAdjacentHTML('afterBegin', 
-    `<article class="card hydration-card">
-  <p>You drank</p>
-  <p><span class="number">${dataSet.calculateDailyOunces(id, dateString)}</span></p>
-  <p>oz water today.</p>
-</article>
-<article class="card hydration-card">
-  <p>Your average water intake is</p>
-  <p><span class="number">${dataSet.calculateAverageOunces(id)}</span></p>
-  <p>oz per day.</p>
-</article>`);
-  todayCard.insertAdjacentHTML('afterBegin', `<article
-  class="card hydration-card">
-  <p>Water intake this week:</p>
-  <ul class="card-list" id="hydrationThisWeek"> ${makeHtml(id, dataSet, userStorage,
-    dataSet.calculateFirstWeekOunces(userStorage, id))} </ul>
-</article>
-<article class="card hydration-card">
-  <ul class="card-list" id="hydrationEarlierWeek"> ${makeHtml(id, dataSet,
-    userStorage, dataSet.calculateRandomWeekOunces(laterDateString, id, userStorage))} </ul>
-</article>`
+    `<article class="card ${smData}-card">
+      <p>You ${verb}</p> 
+      <p><span class="number">${calculate()}</span></p>
+      <p>${activityAmount}</p>
+    </article>
+    <article class="card ${smData}-card">
+      <p>Your average water intake is</p>
+      <p><span class="number">${average}</span></p>
+      <p>${activityAmount}</p>
+    </article>`);
+  todayCard.insertAdjacentHTML('afterBegin', 
+    `<article class="card ${smData}-card">
+      <p>Water intake this week:</p>
+      <ul class="card-list" id="hydrationThisWeek"> ${makeHtml(id, dataSet, userStorage, dataSet.calculateFirstWeekOunces(userStorage, id))} </ul>
+    </article>
+    <article class="card ${smData}-card">
+      <ul class="card-list" id="hydrationEarlierWeek"> ${makeHtml(id, dataSet, userStorage, dataSet.calculateRandomWeekOunces(laterDateString, id, userStorage))} </ul>
+    </article>`
   );
 }
-
-
