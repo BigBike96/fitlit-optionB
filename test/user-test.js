@@ -84,8 +84,13 @@ describe('User', () => {
   });
 
   it('should have a user stride length', () => {
-    
+
     expect(user1.strideLength).to.equal(4.3);
+  });
+
+  it('should have a user daily step goal', () => {
+    
+    expect(user4.dailyStepGoal).to.equal(7000);
   });
 
   it('should return user first name', () => {
