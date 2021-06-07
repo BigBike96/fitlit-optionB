@@ -57,9 +57,7 @@ window.onload = () => {
 function startApp(userData, userRepo, hydrationData, sleepData, activityData) {
   let currentUser = findRandomUser(getRandomNum(userData), userRepo);
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
-  let randomHistory = makeRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
-  console.log(randomHistory)
-//   historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
+  let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
 //   addInfoToSidebar(userNow, userRepo);
 //   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
 //   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
@@ -80,7 +78,7 @@ function findCurrentDate(users, currentUser, dataSet) {
   return users.makeSortedUserArray(currentUser.id, dataSet);
 }
 
-function makeRandomDate(date) {
+function getRandomDate(date) {
   return date[Math.floor(Math.random() * date.length + 1)].date
 }
 
