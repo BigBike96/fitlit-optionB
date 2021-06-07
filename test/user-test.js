@@ -64,7 +64,6 @@ describe('User', () => {
 
   it('should have a different user name', () => {
 
-    expect(user2.id).to.equal(2);
     expect(user2.name).to.equal("Allie McCarthy");
   });
 
@@ -101,6 +100,11 @@ describe('User', () => {
   it('should return user first name', () => {
 
     expect(user2.getFirstName()).to.equal("Allie");
+  });
+
+  it('should return a different user first name', () => {
+
+    expect(user4.getFirstName()).to.equal("Rainbow");
   });
 
   it('should return list of friend names from user repository', () => {
