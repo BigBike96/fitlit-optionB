@@ -1,5 +1,5 @@
-import './css/base.scss';
-import './css/styles.scss';
+// import './css/base.scss';
+// import './css/styles.scss';
 
 
 import userData from './data/users';
@@ -53,7 +53,7 @@ function generateStartingInformation() {
   apiCalls.retrieveData()
     .then((promise) => {
       fitlitData = [promise[0].userData, promise[1].hydrationData, promise[2].sleepData, promise[3].activityData]
-    }) 
+    })
 }
 
 function startApp() {
