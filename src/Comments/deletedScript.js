@@ -8,3 +8,5 @@ function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
 avStepGoalCard.innerText = The average daily step goal is ${userStorage.calculateAverageStepGoal()};
 */
 
+// Removed this from startApp for separation of concerns
+// historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomDate}`));
