@@ -78,11 +78,10 @@ class Activity {
   }
 
   showcaseWinner(user, date, userRepo) {
+    // NAMED LIST IS NOT BEING USED AT THIS TIME 6-6 @ 6:30PM
     // let namedList = this.showChallengeListAndWinner(user, date, userRepo);
-    let winner = this.showChallengeListAndWinner(user, date, userRepo).shift();
-
-    console.log('winner>>>>>>>>>>', winner);
-    return winner;
+    // console.log('namedList>>>>>>>>>>', namedList);
+    return this.showChallengeListAndWinner(user, date, userRepo).shift();
   }
 
   getStreak(userRepo, id, relevantData) {
