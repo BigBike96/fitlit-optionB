@@ -24,13 +24,6 @@ class Activity {
     let userStepsByDate = finder(this.activityData, id, date);
     return userStepsByDate.numSteps === userRepo.dailyStepGoal ? true : false;
   }
-  // accomplishStepGoal(id, date, userRepo) {
-  //   let userStepsByDate = finder(this.activityData, id, date);
-  //   if (userStepsByDate.numSteps === userRepo.dailyStepGoal) {
-  //     return true;
-  //   }
-  //   return false
-  // }
 
   getDaysGoalExceeded(id, userRepo) {
     return this.activityData.filter(data => id === data.userID && data.numSteps > userRepo.dailyStepGoal).map(data => data.date);
