@@ -58,12 +58,12 @@ function startApp(userData, userRepo, hydrationData, sleepData, activityData) {
   let currentUser = findRandomUser(getRandomNum(userData), userRepo);
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
-//   addInfoToSidebar(userNow, userRepo);
-//   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
-//   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
+  addInfoToSidebar(currentUser, userRepo);
+  addHydrationInfo(currentUser, hydrationData, currentDate, userRepo, randomDate);
+  // addSleepInfo(currentUser, sleepData, currentUser, userRepo, randomDate);
 //   let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
-//   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
-//   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
+//   addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, userNow, winnerNow);
+//   addFriendGameInfo(currentUser, activityRepo, userRepo, today, randomDate, userNow);
 }
 
 function getRandomNum(input) {
@@ -139,6 +139,7 @@ function addInfoToSidebar(user, userStorage) {
 }
 
 function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateString) {
+  console.log(hydrationInfo.calculateDailyOunces)
   hydrationTodayCard.insertAdjacentHTML('afterBegin', `<article class="card hydration-card">
     <p>You drank</p><p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water today.</p>
   </article>
