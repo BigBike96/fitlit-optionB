@@ -7,7 +7,6 @@ export const averager = (array, key) => {
   }
 }
 
-
 export const finder = (array, id, date) => {
   return array.find(data => {
     return id === data.userID && date === data.date;

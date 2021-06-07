@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $primary-font;
   background-color: $primary-background;
   height: auto;
 }
@@ -24,8 +24,7 @@ h3 {
 }
 
 main {
-  display: flex;
-  flex-direction: row;
+  @include flexed-element(row);
   height: 100%;
 }
 
@@ -33,9 +32,8 @@ main {
   align-items: center;
   background-color: $sidebar-background;
   border: $border;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
+  @include flexed-element(column);
+  font-family: $secondary-font;
   font-size: 1.2em;
   font-weight: bold;
   height: 100%;
@@ -57,7 +55,6 @@ main {
     border: $border;
     height: 200px;
     width: 200px;
-    margin: 4px 2px 2px 2px;
     justify-content: center;
   }
 }
@@ -65,31 +62,28 @@ main {
 .info-container {
   width: 100%;
   margin: 1%;
-  display: flex;
-  flex-direction: column;
+  @include flexed-element(column);
 }
 
 .column {
-  display: flex;
-  flex-direction: row;
+  @include flexed-element(row);
 }
 
 .info-card-container {
   width: 100%;
   background-color: $card-background;
   border: $border;
-  display: flex;
   margin: 1%;
 }
 
 .horizontal-card {
-  flex-direction: column;
+  @include flexed-element(column);
   align-items: center;
   justify-content: space-evenly;
 }
 
 .vertical-card {
-  flex-direction: row;
+  @include flexed-element(row);
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
@@ -98,12 +92,16 @@ main {
   height: auto;
   font-size: 1.25em;
   margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
+  font-family: $secondary-font;
+  @include flexed-element(column);
   text-align: center;
   padding: 2%;
   width: 80%;
+
+  &:hover {
+    transform: scale(1.05);
+    transition-duration: 0.5s;
+  }
 }
 
 .hydration-card {
@@ -128,7 +126,7 @@ main {
 .card-list {
   list-style-type: none;
   font-weight: normal;
-  font-family: sans-serif;
+  font-family: $secondary-font;
   font-style: italic;
   padding: 1em;
   font-size: 1em;
@@ -137,7 +135,7 @@ main {
 @media only screen and (max-width: 1330px) {
   main {
     align-items: center;
-    flex-direction: column;
+    @include flexed-element(column);
   }
 
   .sidebar {
@@ -145,6 +143,8 @@ main {
   }
 }
 
-// @media only screen and (max-width: 770px) {
-//
-// }
+@media only screen and (max-width: 770px) {
+  .column {
+    @include flexed-element(column);
+  }
+}
