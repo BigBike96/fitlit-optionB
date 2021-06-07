@@ -145,6 +145,8 @@ main {
   }
 }
 
-// @media only screen and (max-width: 770px) {
-//
-// }
+@media only screen and (max-width: 770px) {
+  .column {
+    flex-direction: column;
+  }
+}
