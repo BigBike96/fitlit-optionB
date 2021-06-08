@@ -96,89 +96,76 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
-  let activity, action, occurrence, method1, method2, present, past, pastStats, amount, consumed, rating, score, presentStats, week;
+  let action, activity, amount, average, consumed, consumedAverage, occurrence,
+    past, pastStats, present, presentStats, rating, score, week;
   switch (data) {
   case 'hydration': {
     activity = 'hydration'
     action = 'drank'
-    method1 = dataSet.calculateDailyOunces(currentUserId, currentDate)
+    consumed = dataSet.calculateDailyOunces(currentUserId, currentDate)
     amount = 'oz water'
-    consumed = 'average water intake is'
-    method2 = dataSet.calculateAverageOunces(currentUserId)
+    average = 'average water intake is'
+    consumedAverage = dataSet.calculateAverageOunces(currentUserId)
     occurrence = 'oz per day.'
-    rating = 'Your average water intake is'
-    score =   dataSet.calculateAverageOunces(currentUserId)
-    week = 'Water intake this week:'
-    present = 'hydrationThisWeek'
     past = 'hydrationEarlierWeek'
-    presentStats = makeHydrationHTML(currentUserId, dataSet, userStorage, dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
-    pastStats = makeHydrationHTML(currentUserId, dataSet, userStorage, dataSet.calculateRandomWeekOunces(laterDateString, currentUserId, userStorage))
+    pastStats = makeHydrationHTML(currentUserId, dataSet, userStorage,
+      dataSet.calculateRandomWeekOunces(laterDateString, currentUserId, userStorage))
+    present = 'hydrationThisWeek'
+    presentStats = makeHydrationHTML(currentUserId, dataSet, userStorage,
+      dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
+    rating = 'Your average water intake is'
+    score = dataSet.calculateAverageOunces(currentUserId)
+    week = 'Water intake this week:'
     break;
   }
   case 'sleep':
-    activity = 'sleep'
     action = 'slept'
-    method1 = dataSet.calculateDailySleep(currentUserId, currentDate)
+    activity = 'sleep'
     amount = 'hours'
-    consumed = 'sleep quality was'
-    method2 = dataSet.calculateDailySleepQuality(currentUserId, currentDate)
+    average = 'sleep quality was'
+    consumed = dataSet.calculateDailySleep(currentUserId, currentDate)
+    consumedAverage = dataSet.calculateDailySleepQuality(currentUserId, currentDate)
     occurrence = 'out of 5.'
+    past = 'sleepEarlierWeek'
+    pastStats = makeSleepHTML(currentUserId, data, userStorage,
+      dataSet.calculateWeekSleep(laterDateString, currentUserId, userStorage))
+    present = 'sleepThisWeek'
+    presentStats = makeSleepHTML(currentUserId, dataSet, userStorage,
+      dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))
     rating = `The average user's sleep quality is`
     score = Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100
     week = 'Hours of sleep this week'
-    present = 'sleepThisWeek'
-    past = 'sleepEarlierWeek'
-    presentStats = makeSleepHTML(currentUserId, dataSet, userStorage, 
-      dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))
-    pastStats = makeSleepHTML(currentUserId, data, userStorage, dataSet.calculateWeekSleep(laterDateString, currentUserId, userStorage))
     break;
   case 'activity':
     activity = 'activity'
     break;
   }
 
-
   todayCard.insertAdjacentHTML('afterBegin', `
   <article class="card ${activity}-card">
   <p>You ${action}</p> 
-  <p>
-  <span class="number">
-  ${method1}
-  </span>
-  </p>  
+  <p><span class="number">${consumed}</span></p>  
   <p>${amount} today.</p>
 </article>
 <article class="card ${activity}-card">
-  <p>Your ${consumed}</p> 
-  <p>
-  <span class="number">
-  ${method2}
-  </span>
-  </p>
+  <p>Your ${average}</p> 
+  <p><span class="number">${consumedAverage}</span></p>
   <p>${occurrence}</p>
 </article>
 <article class="card ${activity}-card">
-  <p>${rating}</p> 
-  <p>
-  <span class="number">
-  ${score}
-  </span>
-  </p>
+  <p>${week}</p> 
+  <p><span class="number">${score}</span></p>
   <p>${occurrence}</p>
 </article>`);
   historyCard.insertAdjacentHTML('afterBegin', `
   <article class="card ${activity}-card">
   <p>${week}</p>
-  <ul class="card-list" id="${present}">
-  ${presentStats}
-  </ul>
+  <ul class="card-list" id="${present}">${presentStats}</ul>
 </article>
 <article class="card ${activity}-card">
-  <ul class="card-list" id="${past}">
-    ${pastStats}
-  </ul>
-</article>
-`);
+<p>${rating}</p>
+  <ul class="card-list" id="${past}">${pastStats}</ul>
+</article>`);
 }
 
 
