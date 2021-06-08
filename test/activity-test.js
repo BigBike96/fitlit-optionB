@@ -3,7 +3,7 @@ import Activity from '../src/Activity';
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
 
-describe('Activity', () => {
+describe.only('Activity', () => {
   let activityData;
   let user1;
   let user2;
@@ -309,7 +309,7 @@ describe('Activity', () => {
   });
 })
 
-describe('Friend Activity', () => {
+describe.only('Friend Activity', () => {
   let activityData;
   let activity;
   let user1;
