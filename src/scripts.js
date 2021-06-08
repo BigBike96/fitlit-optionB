@@ -53,7 +53,7 @@ function startApp(userData, userRepo, hydration, sleep, activityData) {
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
   addInfoToSidebar(currentUser, userRepo);
-  // addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
+  addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
   // let winnerNow = makeWinnerID(activityRepo, currentUser, today, userRepo);
   // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, currentUser, winnerNow);
@@ -94,6 +94,8 @@ function addInfoToSidebar(user, userStorage) {
 
 function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateString) {
   let data = dataSet.constructor.name.toLowerCase();
+  let todayCard = `${data}TodayCard`
+  let historyCard = `${data}HistoryCard`
 
   switch (data) {
   case Hydration: {
@@ -110,17 +112,14 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   default:
     break;
   }
-
-  console.log(dataSet)
-  console.log(data)
-  sleepTodayCard.insertAdjacentHTML('afterBegin', `
+  todayCard.insertAdjacentHTML('afterBegin', `
   <article class="card sleep-card">
   <p>You slept</p> 
   <p>
   <span class="number">
   ${dataSet.calculateDailySleep(currentUserId, currentDate)}
   </span>
-  </p> 
+  </p>  
   <p>hours today.</p>
 </article>
 <article class="card sleep-card">
@@ -141,8 +140,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   </p>
   <p>out of 5.</p>
 </article>`);
-
-  sleepHistoryCard.insertAdjacentHTML('afterBegin', `
+  historyCard.insertAdjacentHTML('afterBegin', `
   <article class="card sleep-card">
   <p>Hours of sleep this week</p>
   <ul class="card-list" id="sleepThisWeek">
