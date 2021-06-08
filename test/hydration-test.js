@@ -27,6 +27,10 @@ describe.only('Hydration', () => {
     expect(hydration.calculateDailyOunces(4, "2019/04/15")).to.equal(36);
   });
 
+  // it('should return undefined if there is no water intake recorded for a specified date', () => {
+  //   expect(hydration.calculateDailyOunces(1, "1932/01/01")).to.equal(undefined);
+  // });
+
   it('should find water intake by day for first week', () => {
     const user3 = new User({
       id: 3,
@@ -49,7 +53,6 @@ describe.only('Hydration', () => {
     });
     const users = [user3, user4];
     const userRepo = new UserRepo(users);
-    // console.log(hydration.calculateFirstWeekOunces(userRepo, 4));
     expect(hydration.calculateFirstWeekOunces(userRepo, 4)[0]).to.eql('2019/09/20: 40');
     expect(hydration.calculateFirstWeekOunces(userRepo, 4)[6]).to.eql('2019/04/15: 36');
   });
@@ -76,7 +79,6 @@ describe.only('Hydration', () => {
     });
     const users = [user3, user4];
     const userRepo = new UserRepo(users);
-    console.log("HELOOO", hydration.calculateRandomWeekOunces('2018/02/01', 4, userRepo));
     expect(hydration.calculateRandomWeekOunces('2019/09/18', 4, userRepo)[0]).to.eql('2019/09/18: 40');
     // expect(hydration.calculateRandomWeekOunces('2018/02/01', 4, userRepo)[6]).to.eql('2019/09/16: 30');
     //this is failing because it doesn't exist, need a failure case
