@@ -40,9 +40,9 @@ window.onload = () => {
       let userRepo = new UserRepo(userData)
       let hydrationData = new Hydration(promise[1].hydrationData)
       let sleepData = new Sleep(promise[2].sleepData)
-      let activityData = new Activity (promise[3].activityData)
+      let activityData = new Activity(promise[3].activityData)
       startApp(userData, userRepo, hydrationData, sleepData, activityData);
-    }) 
+    })
 }
 
 function startApp(userData, userRepo, hydration, sleep, activityData) {
@@ -83,8 +83,8 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
 
 // maybe script maybe dom
 
-  // Make functrion that wraps..\ 
-    //Function makeHtml() ARgument changes the last few words 
+// Make functrion that wraps..\ 
+//Function makeHtml() ARgument changes the last few words 
 
 function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
@@ -141,22 +141,22 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
   // console.log(data);
   let smData = data.toLowerCase();
 
-  let makeHtml = eval(`make${data}HTML`)
-  let todayCard = eval(`${smData}TodayCard`)
-  
-  let verb = "";
-  let calculate = () => {};
-  let activityAmount = "";
-  let average = () => {};
+  // let makeHtml = eval(`make${data}HTML`)
+  // let todayCard = eval(`${smData}TodayCard`)
+
+  // let verb = "";
+  // let calculate = () => {};
+  // let activityAmount = "";
+  // let average = () => {};
 
   switch (data) {
   case Hydration: {
-    verb = "drank";
-    calculate = dataSet.calculateDailyOunces(id, dateString);
-    activityAmount = "oz water today.";
-    average = dataSet.calculateAverageOunces(id);
+    // verb = "drank";
+    // calculate = dataSet.calculateDailyOunces(id, dateString);
+    // activityAmount = "oz water today.";
+    // average = dataSet.calculateAverageOunces(id);
   }
-    
+
     break;
   case Sleep:
     //code block
@@ -164,32 +164,37 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
   case Activity:
     //code block
     break;
-  
+
   default:
     break;
   }
-  todayCard.insertAdjacentHTML('afterBegin', 
-    `<article class="card hydration-card">
-  <p>You drank</p>
-  <p><span class="number">${dataSet.calculateDailyOunces(id, dateString)}</span></p>
-  <p>oz water today.</p>
+  sleepTodayCard.insertAdjacentHTML('afterBegin', `
+  <article class="card sleep-card">
+  <p>You slept</p> 
+  <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> 
+  <p>hours today.</p>
 </article>
-<article class="card hydration-card">
-  <p>Your average water intake is</p>
-  <p><span class="number">${dataSet.calculateAverageOunces(id)}</span></p>
-  <p>oz per day.</p>
+<article class="card sleep-card">
+  <p>Your sleep quality was</p> 
+  <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span>
+  </p><p>out of 5.</p>
+</article>
+<article class="card sleep-card">
+  <p>The average user's sleep quality is</p> 
+  <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span>
+  </p><p>out of 5.</p>
 </article>`);
-  todayCard.insertAdjacentHTML('afterBegin', `<article
-  class="card hydration-card">
-  <p>Water intake this week:</p>
-  <ul class="card-list" id="hydrationThisWeek"> ${makeHtml(id, dataSet, userStorage,
-    dataSet.calculateFirstWeekOunces(userStorage, id))} </ul>
+  sleepHistoryCard.insertAdjacentHTML('afterBegin',
+    `<article class="card sleep-card">
+  <p>Hours of sleep this week</p>
+  <ul class="card-list" id="sleepThisWeek">
+  ${makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage))}
+  </ul>
 </article>
-<article class="card hydration-card">
-  <ul class="card-list" id="hydrationEarlierWeek"> ${makeHtml(id, dataSet,
-    userStorage, dataSet.calculateRandomWeekOunces(laterDateString, id, userStorage))} </ul>
-</article>`
-  );
-}
-
+<article class="card sleep-card">
+  <ul class="card-list" id="sleepEarlierWeek">
+    ${makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage))}
+  </ul>
+</article>
+`);
 }
