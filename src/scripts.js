@@ -45,19 +45,19 @@ window.onload = () => {
     })
 }
 
-function startApp(userData, userRepo, hydration, sleep, activityData) {
+function startApp(userData, userRepo, hydration, sleep, activity) {
   // let sleepData = sleep.sleepData
   let hydrationData = hydration.hydrationData
   let currentUser = findRandomUser(getRandomNum(userData), userRepo);
   let currentUserId = currentUser.id
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
+  let winnerNow = makeWinnerID(activity, currentUser, currentDate, userRepo);
   addInfoToSidebar(currentUser, userRepo);
   addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
-  // let winnerNow = makeWinnerID(activityRepo, currentUser, today, userRepo);
-  // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, currentUser, winnerNow);
-  // addFriendGameInfo(currentUser, activityRepo, userRepo, today, randomDate, currentUser);
+  addActivityInfo(currentUser, currentUserId, activity, currentDate, userRepo, winnerNow);
+  addFriendGameInfo(currentUser, activity, userRepo, currentDate, randomDate, currentUserId);
 }
 
 function getRandomNum(input) {
@@ -92,7 +92,7 @@ function addInfoToSidebar(user, userStorage) {
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 }
 
-function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateString) {
+function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
@@ -109,7 +109,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
     occurrence = 'oz per day.'
     past = 'hydrationEarlierWeek'
     pastStats = makeHydrationHTML(currentUserId, dataSet, userStorage,
-      dataSet.calculateRandomWeekOunces(laterDateString, currentUserId, userStorage))
+      dataSet.calculateRandomWeekOunces(randomDate, currentUserId, userStorage))
     present = 'hydrationThisWeek'
     presentStats = makeHydrationHTML(currentUserId, dataSet, userStorage,
       dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
@@ -128,16 +128,13 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
     occurrence = 'out of 5.'
     past = 'sleepEarlierWeek'
     pastStats = makeSleepHTML(currentUserId, data, userStorage,
-      dataSet.calculateWeekSleep(laterDateString, currentUserId, userStorage))
+      dataSet.calculateWeekSleep(randomDate, currentUserId, userStorage))
     present = 'sleepThisWeek'
     presentStats = makeSleepHTML(currentUserId, dataSet, userStorage,
       dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))
     rating = `The average user's sleep quality is`
     score = Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100
     week = 'Hours of sleep this week'
-    break;
-  case 'activity':
-    activity = 'activity'
     break;
   }
 
@@ -166,6 +163,59 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
 <p>${rating}</p>
   <ul class="card-list" id="${past}">${pastStats}</ul>
 </article>`);
+}
+
+function addActivityInfo(currentUser, currentUserId, activity, currentDate, userStorage, winnerNow) {
+  activityTodayCard.insertAdjacentHTML('afterBegin', `<article class="card activity-card">
+  <p>Step Count:</p><p>You</p><p><span class="number">${activity.userDataForToday(currentUserId, currentDate, userStorage, 'numSteps')}</span></p>
+</article>
+<article class="card activity-card">
+  <p>Step Count:</p><p>All Users</p><p><span class="number">${activity.getAllUserAverageForDay(currentDate, userStorage, 'numSteps')}</span></p>
+</article>
+<article class="card activity-card">
+  <p>Stair Count:</p><p>You</><p><span class="number">${activity.userDataForToday(currentUserId, currentDate, userStorage, 'flightsOfStairs')}</span></p>
+</article>
+<article class="card activity-card">
+  <p>Stair Count: </p><p>All Users</p><p><span class="number">${activity.getAllUserAverageForDay(currentDate, userStorage, 'flightsOfStairs')}</span></p>
+</article>
+<article class="card activity-card">
+  <p>Active Minutes:</p><p>You</p><p><span class="number">${activity.userDataForToday(currentUserId, currentDate, userStorage, 'minutesActive')}</span></p>
+</article>
+<article class="card activity-card">
+  <p>Active Minutes:</p><p>All Users</p><p><span class="number">${activity.getAllUserAverageForDay(currentDate, userStorage, 'minutesActive')}</span></p>
+</article>`);
+  activityHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card activity-card">
+  <p>Your steps this week</p>
+  <ul class="card-list" id="userStepsThisWeek">
+    ${makeStepsHTML(currentUserId, activity, userStorage, activity.userDataForWeek(currentUserId, currentDate, userStorage, "numSteps"))}
+  </ul>
+</article>
+<article class="card activity-card">
+  <p>Your stair count this week</p>
+  <ul class="card-list" id="userStairsThisWeek">
+    ${makeStairsHTML(currentUserId, activity, userStorage, activity.userDataForWeek(currentUserId, currentDate, userStorage, "flightsOfStairs"))}
+  </ul>
+</article>
+<article class="card activity-card">
+  <p>Your minutes of activity this week</p>
+  <ul class="card-list" id="userMinutesThisWeek">
+    ${makeMinutesHTML(currentUserId, activity, userStorage, activity.userDataForWeek(currentUserId, currentDate, userStorage, "minutesActive"))}
+  </ul>
+</article>
+<article class="card activity-card">
+  <p>Winner's steps this week</p>
+  <ul class="card-list" id="bestUserSteps">
+    ${makeStepsHTML(currentUser, activity, userStorage, activity.userDataForWeek(winnerNow.id, currentDate, userStorage, "numSteps"))}
+  </ul>
+</article>`);
+}
+
+function addFriendGameInfo(currentUser, activity, userStorage, currentDate, randomDate, currentUserId) {
+  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(currentUserId, activity, userStorage, activity.showChallengeListAndWinner(currentUser, currentDate, userStorage)));
+  streakList.insertAdjacentHTML("afterBegin", makeStepStreakHTML(currentUserId, activity, userStorage, activity.getStreak(userStorage, currentUserId, 'numSteps')));
+  streakListMinutes.insertAdjacentHTML("afterBegin", makeStepStreakHTML(currentUserId, activity, userStorage, activity.getStreak(userStorage, currentUserId, 'minutesActive')));
+  friendChallengeListHistory.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(currentUserId, activity, userStorage, activity.showChallengeListAndWinner(currentUser, currentDate, userStorage)));
+  bigWinner.insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activity.showcaseWinner(currentUser, currentDate, userStorage)} steps`)
 }
 
 
@@ -205,3 +255,4 @@ function makeFriendChallengeHTML(currentUserId, activityInfo, userStorage, metho
 function makeStepStreakHTML(currentUserId, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
+
