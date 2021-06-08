@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Activity Tracker</title>
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" />
-</head>
-<body>
-  <h1 id="headerText">Activity Tracker</h1>
-  <main>
-    <section class="sidebar">
-      <h2 id="sidebarName"></h2>
-      <img src="./images/the-rock.jpg" alt="Dwayne 'The Rock' Johnson, smiling at the camera"
-        class="sidebar-image">
-      <p id="userAddress"></p>
-      <p id="userEmail"></p>
-      <p id="userStridelength"></p>
-      <p id="stepGoalCard"></p>
-      <p id="avStepGoalCard">
-        <p>
-          <p>Friends</p>
-          <ul class="card-list" id="friendList"></ul>
-          <p>Keep up the good work! You were increasingly active on these dates:</p>
-          <ul class="card-list" id="streakListMinutes"></ul>
-    </section>
-    <section class="info-container">
-      <section class="column">
-        <article class="info-card-container horizontal-card" id="hydrationTodayCard"></article>
-        <article class="info-card-container vertical-card" id="hydrationHistoryCard"></article>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Tracker</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap"/>
+  </head>
+  <body>
+    <h1 id="headerText">Activity Tracker</h1>
+    <main>
+      <section class="sidebar" tabindex="1">
+        <h2 id="sidebarName" tabindex="2"></h2>
+        <img src="./images/the-rock.jpg" alt="Dwayne 'The Rock' Johnson, smiling at the camera">
+        <h3 id="userAddress"></h3>
+        <h3 id="userEmail"></h3>
+        <h3 id="userStridelength"></h3>
+        <h3 id="stepGoalCard"></h3>
+        <h3 id="avStepGoalCard"><h3>
+        <h3>Friends</h3>
+        <ul class="card-list" id="friendList" tabindex="3"></ul>
+        <h3>Keep up the good work! You were increasingly active on these dates:</h3>
+        <ul class="card-list" id="streakListMinutes" tabindex="4"></ul>
       </section>
-      <section class="column">
-        <article class="info-card-container horizontal-card" id="activityTodayCard"></article>
-        <article class="info-card-container vertical-card" id="activityHistoryCard"></article>
+      <section class="info-container">
+        <section class="column">
+          <article class="info-card-container horizontal-card" id="hydrationTodayCard" tabindex="5"></article>
+          <article class="info-card-container vertical-card" id="hydrationHistoryCard" tabindex="6"></article>
+        </section>
+        <section class="column">
+          <article class="info-card-container horizontal-card" id="activityTodayCard" tabindex="7"></article>
+          <article class="info-card-container vertical-card" id="activityHistoryCard" tabindex="8"></article>
+        </section>
+        <section class="column">
+          <article class="info-card-container horizontal-card" id="sleepTodayCard" tabindex="9"></article>
+          <article class="info-card-container vertical-card" id="sleepHistoryCard" tabindex="10"></article>
+        </section>
       </section>
-      <section class="column">
-        <article class="info-card-container horizontal-card" id="sleepTodayCard"></article>
-        <article class="info-card-container vertical-card" id="sleepHistoryCard"></article>
+      <section class="sidebar">
+        <h2>Friendly Step Challenge!</h2>
+        <img src="./images/person-walking-on-path.jpg" alt="A picture of a pair of legs, walking forward down a sidewalk">
+        <h3 id="bigWinner" tabindex="11"></h3>
+        <h3>Rank this week</h3>
+        <ul class="card-list" id="friendChallengeListToday" tabindex="12"></ul>
+        <h3>Historical Rank</h3>
+        <ul class="card-list" id="friendChallengeListHistory" tabindex="13"></ul>
+        <h3>You had 3-Day Step Streaks on these days:</h3>
+        <ul class="card-list" id="streakList" tabindex="14"></ul>
       </section>
     </section>
     <section class="sidebar">
