@@ -46,26 +46,26 @@ window.onload = () => {
 }
 
 function startApp(userData, userRepo, hydration, sleep, activityData) {
-  let sleepData = sleep.sleepData
+  // let sleepData = sleep.sleepData
   let hydrationData = hydration.hydrationData
   let currentUser = findRandomUser(getRandomNum(userData), userRepo);
-  let currentUserID = currentUser.id
+  let currentUserId = currentUser.id
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
   addInfoToSidebar(currentUser, userRepo);
-  addInfo(currentUserID, hydration, currentDate, userRepo, randomDate);
-  // addInfo(currentUserID, sleep, currentDate, userRepo, randomDate);
-  // let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
-  // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, userNow, winnerNow);
-  // addFriendGameInfo(currentUser, activityRepo, userRepo, today, randomDate, userNow);
+  // addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
+  addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
+  // let winnerNow = makeWinnerID(activityRepo, currentUser, today, userRepo);
+  // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, currentUser, winnerNow);
+  // addFriendGameInfo(currentUser, activityRepo, userRepo, today, randomDate, currentUser);
 }
 
 function getRandomNum(input) {
   return Math.floor(Math.random() * input.length);
 }
 
-function findRandomUser(id, users) {
-  return users.getDataFromID(id);
+function findRandomUser(currentUserId, users) {
+  return users.getDataFromID(currentUserId);
 }
 
 function findCurrentDate(users, currentUser, dataSet) {
@@ -77,8 +77,8 @@ function getRandomDate(date) {
   return date[Math.floor(Math.random() * date.length + 1)].date
 }
 
-function makeWinnerID(activityInfo, user, dateString, userStorage) {
-  return activityInfo.getWinnerId(user, dateString, userStorage)
+function makeWinnerID(activityInfo, user, currentDate, userStorage) {
+  return activityInfo.getWinnerId(user, currentDate, userStorage)
 }
 
 // dom related functions
@@ -92,7 +92,7 @@ function addInfoToSidebar(user, userStorage) {
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 }
 
-function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
+function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateString) {
   let data = dataSet.constructor.name.toLowerCase();
 
   switch (data) {
@@ -110,32 +110,48 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
   default:
     break;
   }
+
+  console.log(dataSet)
+  console.log(data)
   sleepTodayCard.insertAdjacentHTML('afterBegin', `
   <article class="card sleep-card">
   <p>You slept</p> 
-  <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> 
+  <p>
+  <span class="number">
+  ${dataSet.calculateDailySleep(currentUserId, currentDate)}
+  </span>
+  </p> 
   <p>hours today.</p>
 </article>
 <article class="card sleep-card">
   <p>Your sleep quality was</p> 
-  <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span>
-  </p><p>out of 5.</p>
+  <p>
+  <span class="number">
+  ${dataSet.calculateDailySleepQuality(currentUserId, currentDate)}
+  </span>
+  </p>
+  <p>out of 5.</p>
 </article>
 <article class="card sleep-card">
   <p>The average user's sleep quality is</p> 
-  <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span>
-  </p><p>out of 5.</p>
+  <p>
+  <span class="number">
+  ${Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100}
+  </span>
+  </p>
+  <p>out of 5.</p>
 </article>`);
-  sleepHistoryCard.insertAdjacentHTML('afterBegin',
-    `<article class="card sleep-card">
+
+  sleepHistoryCard.insertAdjacentHTML('afterBegin', `
+  <article class="card sleep-card">
   <p>Hours of sleep this week</p>
   <ul class="card-list" id="sleepThisWeek">
-  ${makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage))}
+  ${makeSleepHTML(currentUserId, data, userStorage, dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))}
   </ul>
 </article>
 <article class="card sleep-card">
   <ul class="card-list" id="sleepEarlierWeek">
-    ${makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage))}
+    ${makeSleepHTML(currentUserId, data, userStorage, dataSet.calculateWeekSleep(laterDateString, currentUserId, userStorage))}
   </ul>
 </article>
 `);
@@ -147,36 +163,35 @@ function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
 }
 
-function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
+function makeHydrationHTML(currentUserId, hydrationInfo, userStorage, method) {
   console.log(method)
   return method.map(drinkData => `<li class="historical-list-listItem">On ${drinkData}oz</li>`).join('');
 }
 
-function makeSleepHTML(id, sleepInfo, userStorage, method) {
+function makeSleepHTML(currentUserId, data, userStorage, method) {
   return method.map(sleepData => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
 }
 
-function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
+function makeSleepQualityHTML(currentUserId, data, userStorage, method) {
   return method.map(sleepQualityData => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
 }
 
-function makeStepsHTML(id, activityInfo, userStorage, method) {
+function makeStepsHTML(currentUserId, activityInfo, userStorage, method) {
   return method.map(activityData => `<li class="historical-list-listItem">On ${activityData} steps</li>`).join('');
 }
 
-function makeStairsHTML(id, activityInfo, userStorage, method) {
+function makeStairsHTML(currentUserId, activityInfo, userStorage, method) {
   return method.map(data => `<li class="historical-list-listItem">On ${data} flights</li>`).join('');
 }
 
-function makeMinutesHTML(id, activityInfo, userStorage, method) {
+function makeMinutesHTML(currentUserId, activityInfo, userStorage, method) {
   return method.map(data => `<li class="historical-list-listItem">On ${data} minutes</li>`).join('');
 }
 
-function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
+function makeFriendChallengeHTML(currentUserId, activityInfo, userStorage, method) {
   return method.map(friendChallengeData => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
 }
 
-function makeStepStreakHTML(id, activityInfo, userStorage, method) {
+function makeStepStreakHTML(currentUserId, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
-
