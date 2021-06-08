@@ -1,8 +1,7 @@
 import { expect } from 'chai';
-
+import  testData  from './sampleData';
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
-import  testData  from './sampleData';
 
 describe('User Repo', () => {
   let user1, user2, user3, user4, user5, users, userRepo, hydrationData, sleepData;
@@ -13,8 +12,6 @@ describe('User Repo', () => {
     user3 = new User(testData.repoTwoUsers[2]);
     user4 = new User(testData.repoTwoUsers[3]);
     user5 = new User(testData.repoTwoUsers[4]);
-    // users = [user1, user2];
-    // userRepo = new UserRepo(users);
     users = [user1, user2, user3, user4, user5];
     userRepo = new UserRepo(users);
     hydrationData = testData.repoTwoHydration
@@ -103,25 +100,29 @@ describe('User Repo', () => {
     });
 
     it('should isolate a user ID and its values of any relevant data', () => {
-      expect(userRepo.isolateUsernameAndRelevantData(sleepData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepData, "2019/06/21"))).to.deep.equal({
+      expect(userRepo.isolateUsernameAndRelevantData(sleepData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepData, "2019/06/21"))).to.deep.equal(
+        {
         '2': [3.5, 4, 3.3, 3.6, 3.6, 4, 3.1],
         '4': [3.5, 4, 1.3, 1.6, 1.6, 1, 3.1],
-        '5': [4, 4, 4, 4, 4, 4, 4]
-      })
-      expect(userRepo.isolateUsernameAndRelevantData(hydrationData, "2019/05/09", 'numOunces', userRepo.chooseWeekDataForAllUsers(hydrationData, "2019/05/09"))).to.eql({
-        '3': [1]
-      })
+        '5': [4, 4, 4, 4, 4, 4, 4],
+        '6': [4, 4]
+        })
+      expect(userRepo.isolateUsernameAndRelevantData(hydrationData, "2019/05/09", 'numOunces', userRepo.chooseWeekDataForAllUsers(hydrationData, "2019/05/09"))).to.deep.equal(
+        { '3': [1] }
+      )
     });
 
     it('should rank user ids according to relevant data value averages', () => {
-      expect(userRepo.rankUserIDsbyRelevantDataValue(sleepData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepData, "2019/06/21"))).to.eql(['5', '2', '4'])
-    });
-    
-    it('should show list in order of userID and average of relevant value', () => {
-      expect(userRepo.combineRankedUserIDsAndAveragedData(sleepData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepData, "2019/06/21"))[0]).to.eql({
-        '5': 4
-      })
+
+      expect(userRepo.rankUserIDsbyRelevantDataValue(sleepData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepData, "2019/06/21"))).to.deep.equal(
+        ['5', '6', '2', '4']
+      )
     });
 
+    it('should show list in order of userID and average of relevant value', () => {
+
+      expect(userRepo.combineRankedUserIDsAndAveragedData(sleepData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepData, "2019/06/21"))[0]).to.deep.equal(
+        { '5': 4 }
+       )
+    });
   });
- // });
