@@ -55,14 +55,17 @@ describe('Sleep', () => {
     expect(sleep.calculateWeekSleepQuality('2019/06/18', 4, userRepo)[0]).to.deep.equal('2019/06/18: 1.6');
     expect(sleep.calculateWeekSleepQuality('2019/06/18', 4, userRepo)[6]).to.deep.equal('2017/06/15: 3');
   })
+
   it('should determine the best quality sleepers for a week', () => {
 
     expect(sleep.determineBestSleepers("2019/06/21", userRepo)).to.deep.equal(["Allie McCarthy", "Bugs Bunny"]);
   })
+
   it('should return person with best quality sleep for the week', () => {
 
     expect(sleep.determineSleepWinnerForWeek("2019/06/21", userRepo)).to.deep.equal(["Bugs Bunny"]);
   })
+
   it('should return all qualifying users if best quality sleep is a tie', () => {
     sleepData = sleepData.push({
       "userID": 6,
@@ -89,6 +92,7 @@ describe('Sleep', () => {
 
     expect(sleep.determineSleepHoursWinnerForDay('2019/06/21', userRepo)).to.deep.equal(["Bugs Bunny"]);
   })
+
   it('should return all qualifying users if longest sleep is a tie', () => {
     sleepData = sleepData.push({
       "userID": 6,
@@ -110,5 +114,4 @@ describe('Sleep', () => {
 
     expect(sleep.determineSleepHoursWinnerForDay('2019/06/21', userRepo)).to.deep.equal(["Bugs Bunny", "Richmond"]);
   })
-  //make this test fail when user is NOT best in week
 });
