@@ -53,7 +53,7 @@ function startApp(userData, userRepo, hydration, sleep, activityData) {
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
   addInfoToSidebar(currentUser, userRepo);
-  // addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
+  addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
   // let winnerNow = makeWinnerID(activityRepo, currentUser, today, userRepo);
   // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, currentUser, winnerNow);
@@ -96,7 +96,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
-  let activity, action, occurrence, method1, method2, amount, consumed;
+  let activity, action, occurrence, method1, method2, amount, consumed, rating, score;
   switch (data) {
   case 'hydration': {
     activity = 'hydration'
@@ -106,6 +106,8 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
     consumed = 'average water intake is'
     method2 = dataSet.calculateAverageOunces(currentUserId)
     occurrence = 'oz per day.'
+    rating = 'Your average water intake is'
+    score =   dataSet.calculateAverageOunces(currentUserId)
     break;
   }
   case 'sleep':
@@ -116,6 +118,8 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
     consumed = 'sleep quality was'
     method2 = dataSet.calculateDailySleepQuality(currentUserId, currentDate)
     occurrence = 'out of 5.'
+    rating = `The average user's sleep quality is`
+    score = Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100
     break;
   case 'activity':
     activity = 'activity'
@@ -142,14 +146,14 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   </p>
   <p>${occurrence}</p>
 </article>
-<article class="card sleep-card">
-  <p>The average user's sleep quality is</p> 
+<article class="card ${activity}-card">
+  <p>${rating}</p> 
   <p>
   <span class="number">
-  ${Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100}
+  ${score}
   </span>
   </p>
-  <p>out of 5.</p>
+  <p>${occurrence}</p>
 </article>`);
   historyCard.insertAdjacentHTML('afterBegin', `
   <article class="card sleep-card">
