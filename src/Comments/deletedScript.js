@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /*
 // makeSleepQualityHTML is never used anywhere.
 function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
@@ -48,11 +49,22 @@ function addInfo(id, dataSet, dateString, userStorage, laterDateString) {
 // ============== Deans code
 
 function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateString) {
-  hydrationTodayCard.insertAdjacentHTML('afterBegin', `<article class="card hydration-card">
-    <p>You drank</p><p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water today.</p>
+  hydrationTodayCard.insertAdjacentHTML('afterBegin', `
+  <article class="card hydration-card">
+    <p>You drank</p>
+    <p>
+    <span class="number">
+    ${hydrationInfo.calculateDailyOunces(id, dateString)}
+    </span>
+    </p>
+    <p>oz water today.</p>
   </article>
   <article class="card hydration-card">
-    <p>Your average water intake is</p><p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>oz per day.</p>
+    <p>Your average water intake is</p>
+    <p><span class="number">
+    <p>oz per day.</p>
+    ${hydrationInfo.calculateAverageOunces(id)}
+    </span></p> 
   </article>`);
   hydrationHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card hydration-card">
     <p>Water intake this week:</p>
@@ -136,3 +148,28 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   </article>`);
 }
 
+
+
+
+//My old code for dynamic html
+//you drank, you slept, and you walked
+// todayCard.insertAdjacentHTML('afterBegin', 
+//   `<article class="card ${smData}-card">
+//     <p>You ${verb}</p> 
+//     <p><span class="number">${calculate()}</span></p>
+//     <p>${activityAmount}</p>
+//   </article>
+//   <article class="card ${smData}-card">
+//     <p>Your average water intake is</p>
+//     <p><span class="number">${average}</span></p>
+//     <p>${activityAmount}</p>
+//   </article>`);
+// todayCard.insertAdjacentHTML('afterBegin', 
+//   `<article class="card ${smData}-card">
+//     <p>Water intake this week:</
+//     <ul class="card-list" id="hydrationThisWeek"> ${makeHtml(id, dataSet, userStorage, dataSet.calculateFirstWeekOunces(userStorage, id))} </ul>
+//   </article>
+//   <article class="card ${smData}-card">
+//     <ul class="card-list" id="hydrationEarlierWeek"> ${makeHtml(id, dataSet, userStorage, dataSet.calculateRandomWeekOunces(laterDateString, id, userStorage))} </ul>
+//   </article>`
+// );
