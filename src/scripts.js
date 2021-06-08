@@ -53,7 +53,7 @@ function startApp(userData, userRepo, hydration, sleep, activityData) {
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
   addInfoToSidebar(currentUser, userRepo);
-  addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
+  // addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
   // let winnerNow = makeWinnerID(activityRepo, currentUser, today, userRepo);
   // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, currentUser, winnerNow);
@@ -96,7 +96,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
-  let activity, action, occurrence, method1, method2, amount, consumed, rating, score;
+  let activity, action, occurrence, method1, method2, present, past, amount, consumed, rating, score, week;
   switch (data) {
   case 'hydration': {
     activity = 'hydration'
@@ -108,6 +108,9 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
     occurrence = 'oz per day.'
     rating = 'Your average water intake is'
     score =   dataSet.calculateAverageOunces(currentUserId)
+    week = 'Water intake this week:'
+    present = 'hydrationThisWeek'
+    past = makeHydrationHTML(currentUserId, dataSet, userStorage, dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
     break;
   }
   case 'sleep':
@@ -120,6 +123,9 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
     occurrence = 'out of 5.'
     rating = `The average user's sleep quality is`
     score = Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100
+    week = 'Hours of sleep this week'
+    present = 'sleepThisWeek'
+    past = makeSleepHTML(currentUserId, dataSet, userStorage, dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))
     break;
   case 'activity':
     activity = 'activity'
@@ -156,10 +162,10 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   <p>${occurrence}</p>
 </article>`);
   historyCard.insertAdjacentHTML('afterBegin', `
-  <article class="card sleep-card">
-  <p>Hours of sleep this week</p>
-  <ul class="card-list" id="sleepThisWeek">
-  ${makeSleepHTML(currentUserId, data, userStorage, dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))}
+  <article class="card ${activity}-card">
+  <p>${week}</p>
+  <ul class="card-list" id="${present}">
+  ${past}
   </ul>
 </article>
 <article class="card sleep-card">
