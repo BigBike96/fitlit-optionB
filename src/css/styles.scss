@@ -32,6 +32,7 @@ main {
   align-items: center;
   background-color: $sidebar-background;
   border: $border;
+  border-radius: $curved-corners;
   @include flexed-element(column);
   font-family: $secondary-font;
   font-size: 1.2em;
@@ -77,13 +78,16 @@ main {
   from {
     transform: rotate3d(0, 1, 0, 0 deg);
     border: $border-yellow;
+    opacity: 1;
   }
   50% {
     border: $border;
+    opacity: 0;
   }
   to {
     transform: rotate3d(0, 1, 0, 180deg);
     border: $border-yellow;
+    opacity: 1;
   }
 }
 
@@ -98,6 +102,7 @@ main {
 }
 
 .info-card-container {
+  border-radius: $curved-corners;
   width: 100%;
   background-color: $card-background;
   border: $border;
@@ -117,11 +122,13 @@ main {
 }
 
 .card {
+  border-radius: $curved-corners;
   height: auto;
   font-size: 1.25em;
   margin: .5em;
   font-family: $secondary-font;
   @include flexed-element(column);
+  color: black;
   text-align: center;
   padding: 2%;
   width: 80%;
@@ -137,14 +144,24 @@ main {
 
 .hydration-card {
   background-color: $hydration-card;
+  span {
+    color: $hydration-total-color;
+  }
 }
 
 .sleep-card {
   background-color: $sleep-card;
+  color:$sleep-text-color;
+  span {
+    color:$sleep-total-color;
+  }
 }
 
 .activity-card {
   background-color: $activity-card;
+  span {
+    color: $activity-total-color
+  }
 }
 
 .number {
