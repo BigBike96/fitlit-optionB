@@ -2,30 +2,14 @@ import { expect } from 'chai';
 
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
-import  userTestData  from './sampleData'
+import  testData  from './sampleData';
 
 describe('User Repo', () => {
   let user1, user2, users, userRepo;
 
   beforeEach(() => {
-    user1 = new User({
-      id: 1,
-      name: "Alex Roth",
-      address: "1234 Turing Street, Denver CO 80301-1697",
-      email: "alex.roth1@hotmail.com",
-      strideLength: 4.3,
-      dailyStepGoal: 10000,
-      friends: [2, 3, 4]
-    });
-    user2 = new User({
-      id: 2,
-      name: "Allie McCarthy",
-      address: "1235 Turing Street, Denver CO 80301-1697",
-      email: "allie.mcc1@hotmail.com",
-      strideLength: 3.3,
-      dailyStepGoal: 9000,
-      friends: [1, 3, 4]
-    });
+    user1 = new User(testData.repoOne[0]);
+    user2 = new User(testData.repoOne[1]);
     users = [user1, user2];
     userRepo = new UserRepo(users);
   });
@@ -78,6 +62,10 @@ describe('User Repo', () => {
     let sleepData;
 
     beforeEach(() => {
+      // user1 = new User(testData.repoOne[0]);
+      // user2 = new User(testData.repoOne[1]);
+
+
       user1 = new User({
         id: 1,
         name: "Alex Roth",
@@ -503,4 +491,4 @@ describe('User Repo', () => {
     });
 
   });
-});
+ });

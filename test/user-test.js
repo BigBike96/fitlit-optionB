@@ -2,16 +2,16 @@ import { expect } from 'chai';
 
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
-import  userTestData  from './sampleData'
+import  testData  from './sampleData'
 
 describe('User', () => {
   let user1, user2, user3, user4, users;
 
   beforeEach(() => {
-    user1 = new User(userTestData[0]);
-    user2 = new User(userTestData[1]);
-    user3 = new User(userTestData[2]);
-    user4 = new User(userTestData[3]);
+    user1 = new User(testData.user[0]);
+    user2 = new User(testData.user[1]);
+    user3 = new User(testData.user[2]);
+    user4 = new User(testData.user[3]);
 
     users = [user1, user2, user3, user4];
   });
