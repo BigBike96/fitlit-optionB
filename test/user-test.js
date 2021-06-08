@@ -8,7 +8,6 @@ describe('User', () => {
   let user1, user2, user3, user4, users;
 
   beforeEach(() => {
-    console.log(userTestData);
     user1 = new User(userTestData[0]);
     user2 = new User(userTestData[1]);
     user3 = new User(userTestData[2]);

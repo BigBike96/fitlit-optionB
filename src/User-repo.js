@@ -37,7 +37,7 @@ class UserRepo {
 
   chooseWeekDataForAllUsers(dataSet, date) {
     return dataSet.filter((dataItem) => {
-      return ((new Date(date)).setDate((new Date(date)).getDate() - 7) <= new Date(dataItem.date)) 
+      return ((new Date(date)).setDate((new Date(date)).getDate() - 7) <= new Date(dataItem.date))
       && (new Date(dataItem.date) <= new Date(date))
     })
   }
@@ -49,7 +49,7 @@ class UserRepo {
   isolateUsernameAndRelevantData(dataSet, date, relevantData, listFromMethod) {
     return listFromMethod.reduce((acc, dataItem) => {
       (!acc[dataItem.userID]) ?
-        acc[dataItem.userID] = [dataItem[relevantData]] : 
+        acc[dataItem.userID] = [dataItem[relevantData]] :
         acc[dataItem.userID].push(dataItem[relevantData]);
       return acc;
     }, {});

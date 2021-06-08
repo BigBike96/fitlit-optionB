@@ -557,7 +557,7 @@ describe('Friend Activity', () => {
   });
 
   it('should know the ID of the winning friend', () => {
-    expect(activity.getWinnerId(user4, "2019/06/15", userRepo)).to.eql(2)
+    expect(activity.getWinnerId(user4, "2019/06/15", userRepo)).to.equal(2)
   });
 // new test for showcaseWinner
   it('should know the name and activity of the winning friend', () => {

@@ -14,7 +14,7 @@ class User {
   }
 
   getFriendsNames(userStorage) {
-    return this.friends.map((friendId) => (userStorage.getDataFromID(friendId).name));
+    return this.friends.map(friendId => (userStorage.getDataFromID(friendId).name));
   }
 }
 
