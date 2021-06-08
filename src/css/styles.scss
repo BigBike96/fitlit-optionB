@@ -50,10 +50,40 @@ main {
 
   img {
     border-radius: 50%;
-    border: $border;
     height: 200px;
     width: 200px;
     justify-content: center;
+    border: $border-yellow;
+    box-shadow: 0px 0px 9px 3px rgba(196,188,196,1);
+    cursor: pointer;
+    transition: transform 0.5s;
+    
+    &:hover {
+      transform: scale(1.05);
+      transition-duration: 0.5s;
+      box-shadow: 5px 5px 0px 0px #0000003d;
+      animation: spin-like-a-coin 3.5s linear;
+      animation-direction: alternate-reverse;
+      animation-iteration-count: infinite;  
+    }
+    &:active {
+        box-shadow: none;
+        margin-top: 4px;
+        animation-play-state: paused;
+    }
+  }
+}
+@keyframes spin-like-a-coin {
+  from {
+    transform: rotate3d(0, 1, 0, 0 deg);
+    border: $border-yellow;
+  }
+  50% {
+    border: $border;
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 180deg);
+    border: $border-yellow;
   }
 }
 
