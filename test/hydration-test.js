@@ -5,8 +5,7 @@ import User from '../src/User';
 import testData from './sampleData';
 
 describe.only('Hydration', () => {
-  let hydrationData;
-  let hydration;
+  let hydrationData, hydration;
 
   beforeEach(() => {
     hydrationData = testData.hydrationData;
