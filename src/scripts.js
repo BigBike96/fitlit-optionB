@@ -12,25 +12,20 @@ import Sleep from './classes/Sleep';
 import UserRepo from './classes//User-repo';
 
 // querySelectors
+const activityHistoryCard = document.querySelector('#activityHistoryCard');
+const activityTodayCard = document.querySelector('#activityTodayCard');
+const bigWinner = document.getElementById('bigWinner');
+const friendChallengeListHistory = document.getElementById('friendChallengeListHistory');
+const friendChallengeListToday = document.getElementById('friendChallengeListToday');
+const friendList = document.getElementById('friendList');
+const headerText = document.getElementById('headerText');
+const streakList = document.getElementById('streakList');
+const streakListMinutes = document.getElementById('streakListMinutes')
 const sidebarName = document.getElementById('sidebarName');
 const stepGoalCard = document.getElementById('stepGoalCard');
-const headerText = document.getElementById('headerText');
 const userAddress = document.getElementById('userAddress');
 const userEmail = document.getElementById('userEmail');
 const userStridelength = document.getElementById('userStridelength');
-const friendList = document.getElementById('friendList');
-const historicalWeek = document.querySelectorAll('.historicalWeek');
-const friendChallengeListToday = document.getElementById('friendChallengeListToday');
-const friendChallengeListHistory = document.getElementById('friendChallengeListHistory');
-const bigWinner = document.getElementById('bigWinner');
-const streakList = document.getElementById('streakList');
-const streakListMinutes = document.getElementById('streakListMinutes')
-const hydrationTodayCard = document.querySelector('#hydrationTodayCard');
-const hydrationHistoryCard = document.querySelector('#hydrationHistoryCard');
-const activityTodayCard = document.querySelector('#activityTodayCard');
-const activityHistoryCard = document.querySelector('#activityHistoryCard');
-const sleepTodayCard = document.querySelector('#sleepTodayCard');
-const sleepHistoryCard = document.querySelector('#sleepHistoryCard');
 
 // start application 
 window.onload = () => {
@@ -46,7 +41,6 @@ window.onload = () => {
 }
 
 function startApp(userData, userRepo, hydration, sleep, activity) {
-  // let sleepData = sleep.sleepData
   let hydrationData = hydration.hydrationData
   let currentUser = findRandomUser(getRandomNum(userData), userRepo);
   let currentUserId = currentUser.id
@@ -57,7 +51,7 @@ function startApp(userData, userRepo, hydration, sleep, activity) {
   addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
   addActivityInfo(currentUser, currentUserId, activity, currentDate, userRepo, winnerNow);
-  addFriendGameInfo(currentUser, activity, userRepo, currentDate, randomDate, currentUserId);
+  addFriendGameInfo(currentUser, activity, userRepo, currentDate, currentUserId);
 }
 
 function getRandomNum(input) {
@@ -81,7 +75,7 @@ function makeWinnerID(activityInfo, user, currentDate, userStorage) {
   return activityInfo.getWinnerId(user, currentDate, userStorage)
 }
 
-// dom related functions
+// dom functions
 function addInfoToSidebar(user, userStorage) {
   sidebarName.innerText = user.name;
   headerText.innerText = `${user.getFirstName()}'s Activity Tracker`;
@@ -108,11 +102,9 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
     consumedAverage = dataSet.calculateAverageOunces(currentUserId)
     occurrence = 'oz per day.'
     past = 'hydrationEarlierWeek'
-    pastStats = makeHydrationHTML(currentUserId, dataSet, userStorage,
-      dataSet.calculateRandomWeekOunces(randomDate, currentUserId, userStorage))
+    pastStats = makeHydrationHTML(dataSet.calculateRandomWeekOunces(randomDate, currentUserId, userStorage))
     present = 'hydrationThisWeek'
-    presentStats = makeHydrationHTML(currentUserId, dataSet, userStorage,
-      dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
+    presentStats = makeHydrationHTML(dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
     rating = 'Your average water intake is'
     score = dataSet.calculateAverageOunces(currentUserId)
     week = 'Water intake this week:'
@@ -127,11 +119,9 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
     consumedAverage = dataSet.calculateDailySleepQuality(currentUserId, currentDate)
     occurrence = 'out of 5.'
     past = 'sleepEarlierWeek'
-    pastStats = makeSleepHTML(currentUserId, data, userStorage,
-      dataSet.calculateWeekSleep(randomDate, currentUserId, userStorage))
+    pastStats = makeSleepHTML(dataSet.calculateWeekSleep(randomDate, currentUserId, userStorage))
     present = 'sleepThisWeek'
-    presentStats = makeSleepHTML(currentUserId, dataSet, userStorage,
-      dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))
+    presentStats = makeSleepHTML(dataSet.calculateWeekSleep(currentDate, currentUserId, userStorage))
     rating = `The average user's sleep quality is`
     score = Math.round(dataSet.calculateAllUserSleepQuality() * 100) / 100
     week = 'Hours of sleep this week'
@@ -187,72 +177,66 @@ function addActivityInfo(currentUser, currentUserId, activity, currentDate, user
   activityHistoryCard.insertAdjacentHTML('afterBegin', `<article class="card activity-card">
   <p>Your steps this week</p>
   <ul class="card-list" id="userStepsThisWeek">
-    ${makeStepsHTML(currentUserId, activity, userStorage, activity.userDataForWeek(currentUserId, currentDate, userStorage, "numSteps"))}
+    ${makeStepsHTML(activity.userDataForWeek(currentUserId, currentDate, userStorage, "numSteps"))}
   </ul>
 </article>
 <article class="card activity-card">
   <p>Your stair count this week</p>
   <ul class="card-list" id="userStairsThisWeek">
-    ${makeStairsHTML(currentUserId, activity, userStorage, activity.userDataForWeek(currentUserId, currentDate, userStorage, "flightsOfStairs"))}
+    ${makeStairsHTML(activity.userDataForWeek(currentUserId, currentDate, userStorage, "flightsOfStairs"))}
   </ul>
 </article>
 <article class="card activity-card">
   <p>Your minutes of activity this week</p>
   <ul class="card-list" id="userMinutesThisWeek">
-    ${makeMinutesHTML(currentUserId, activity, userStorage, activity.userDataForWeek(currentUserId, currentDate, userStorage, "minutesActive"))}
+    ${makeMinutesHTML(activity.userDataForWeek(currentUserId, currentDate, userStorage, "minutesActive"))}
   </ul>
 </article>
 <article class="card activity-card">
   <p>Winner's steps this week</p>
   <ul class="card-list" id="bestUserSteps">
-    ${makeStepsHTML(currentUser, activity, userStorage, activity.userDataForWeek(winnerNow.id, currentDate, userStorage, "numSteps"))}
+    ${makeStepsHTML(activity.userDataForWeek(winnerNow.id, currentDate, userStorage, "numSteps"))}
   </ul>
 </article>`);
 }
 
-function addFriendGameInfo(currentUser, activity, userStorage, currentDate, randomDate, currentUserId) {
-  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(currentUserId, activity, userStorage, activity.showChallengeListAndWinner(currentUser, currentDate, userStorage)));
-  streakList.insertAdjacentHTML("afterBegin", makeStepStreakHTML(currentUserId, activity, userStorage, activity.getStreak(userStorage, currentUserId, 'numSteps')));
-  streakListMinutes.insertAdjacentHTML("afterBegin", makeStepStreakHTML(currentUserId, activity, userStorage, activity.getStreak(userStorage, currentUserId, 'minutesActive')));
-  friendChallengeListHistory.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(currentUserId, activity, userStorage, activity.showChallengeListAndWinner(currentUser, currentDate, userStorage)));
+function addFriendGameInfo(currentUser, activity, userStorage, currentDate, currentUserId) {
+  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(activity.showChallengeListAndWinner(currentUser, currentDate, userStorage)));
+  streakList.insertAdjacentHTML("afterBegin", makeStepStreakHTML(activity.getStreak(userStorage, currentUserId, 'numSteps')));
+  streakListMinutes.insertAdjacentHTML("afterBegin", makeStepStreakHTML(activity.getStreak(userStorage, currentUserId, 'minutesActive')));
+  friendChallengeListHistory.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(activity.showChallengeListAndWinner(currentUser, currentDate, userStorage)));
   bigWinner.insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activity.showcaseWinner(currentUser, currentDate, userStorage)} steps`)
 }
 
-
-//dom helpers 
+// dom helper functions
 function makeFriendHTML(user, userStorage) {
   return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
 }
 
-function makeHydrationHTML(currentUserId, hydrationInfo, userStorage, method) {
+function makeHydrationHTML(method) {
   return method.map(drinkData => `<li class="historical-list-listItem">On ${drinkData}oz</li>`).join('');
 }
 
-function makeSleepHTML(currentUserId, data, userStorage, method) {
+function makeSleepHTML(method) {
   return method.map(sleepData => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
 }
 
-function makeSleepQualityHTML(currentUserId, data, userStorage, method) {
-  return method.map(sleepQualityData => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
-}
-
-function makeStepsHTML(currentUserId, activityInfo, userStorage, method) {
+function makeStepsHTML(method) {
   return method.map(activityData => `<li class="historical-list-listItem">On ${activityData} steps</li>`).join('');
 }
 
-function makeStairsHTML(currentUserId, activityInfo, userStorage, method) {
+function makeStairsHTML(method) {
   return method.map(data => `<li class="historical-list-listItem">On ${data} flights</li>`).join('');
 }
 
-function makeMinutesHTML(currentUserId, activityInfo, userStorage, method) {
+function makeMinutesHTML(method) {
   return method.map(data => `<li class="historical-list-listItem">On ${data} minutes</li>`).join('');
 }
 
-function makeFriendChallengeHTML(currentUserId, activityInfo, userStorage, method) {
+function makeFriendChallengeHTML(method) {
   return method.map(friendChallengeData => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
 }
 
-function makeStepStreakHTML(currentUserId, activityInfo, userStorage, method) {
+function makeStepStreakHTML(method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
-
