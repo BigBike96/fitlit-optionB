@@ -1,5 +1,5 @@
 import sleepData from './data/sleep';
-import { averager, finder} from './util';
+import { averager, finder, findDataByDate } from './util';
 
 class Sleep {
   constructor(sleepData) {
@@ -12,7 +12,7 @@ class Sleep {
   }
 
   calculateAverageSleepQuality(id) {
-    let perDaySleepQuality = this.sleepData.filter((data) => id === data.userID);
+    let perDaySleepQuality = this.sleepData.filter(data => id === data.userID);
     return averager(perDaySleepQuality, 'sleepQuality');
   }
 
@@ -25,11 +25,11 @@ class Sleep {
   }
 
   calculateWeekSleep(date, id, userRepo) {
-    return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
+    return findDataByDate(date, id, this.sleepData, userRepo, 'hoursSlept');
   }
 
   calculateWeekSleepQuality(date, id, userRepo) {
-    return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
+    return findDataByDate(date, id, this.sleepData, userRepo, 'sleepQuality');
   }
 
   calculateAllUserSleepQuality() {
@@ -40,15 +40,9 @@ class Sleep {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let userSleepObject = userRepo.isolateUsernameAndRelevantData(this.sleepData, date, 'sleepQuality', timeline);
 
-    return Object.keys(userSleepObject).filter((key) => {
-      return (userSleepObject[key].reduce((sumSoFar, sleepQualityValue) => {
-        sumSoFar += sleepQualityValue
-        return sumSoFar;
-      }, 0) / userSleepObject[key].length) > 3
-    }).map(sleeper => {
-      return userRepo.getDataFromID(parseInt(sleeper)).name;
-    })
-  }
+    return Object.keys(userSleepObject).filter((key) => (averager(userSleepObject[key]) > 3))
+                                       .map(sleeper => userRepo.getDataFromID(parseInt(sleeper)).name);
+   }
 
   determineSleepWinnerForWeek(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
@@ -65,17 +59,10 @@ class Sleep {
   }
 
   getWinnerNamesFromList(sortedArray, userRepo) {
-    let bestSleepers = sortedArray.filter(element => {
-      return element[Object.keys(element)] === Object.values(sortedArray[0])[0]
-    });
+    let bestSleepers = sortedArray.filter(element => element[Object.keys(element)] === Object.values(sortedArray[0])[0])
+    let bestSleeperIds = bestSleepers.map(bestSleeper => (Object.keys(bestSleeper)));
 
-    let bestSleeperIds = bestSleepers.map(bestSleeper => {
-      return (Object.keys(bestSleeper));
-    });
-
-    return bestSleeperIds.map(sleepNumber => {
-      return userRepo.getDataFromID(parseInt(sleepNumber)).name;
-    });
+    return bestSleeperIds.map(sleepNumber => userRepo.getDataFromID(parseInt(sleepNumber)).name)
   }
 }
 

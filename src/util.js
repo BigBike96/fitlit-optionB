@@ -1,4 +1,11 @@
-export const averager = (array, key) => array.reduce((acc, data) => acc += data[key], 0) / array.length;
+
+export const averager = (array, key) => {
+  if (key !== undefined) {
+    return array.reduce((acc, data) => acc += data[key], 0) / array.length;
+  } else {
+    return array.reduce((acc, data) => acc += data, 0) / array.length;
+  }
+}
 
 export const finder = (array, id, date) => {
   return array.find(data => {
@@ -6,6 +13,6 @@ export const finder = (array, id, date) => {
   });
 }
 
-export const findDataByDate = (array, date, id, userRepo, key, weekDate) => {
+export const findDataByDate = (date, id, array, userRepo, key) => {
   return userRepo.getWeekFromDate(date, id, array).map((data) => `${data.date}: ${data[key]}`);
 }
