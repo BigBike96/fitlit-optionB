@@ -1,5 +1,7 @@
 // import './css/base.scss';
 // import './css/styles.scss';
+import '/Users/shayangolafshani/Turing/2module/projects/fitlit/fitlit-optionB/src/images/the-rock.jpg';
+import '/Users/shayangolafshani/Turing/2module/projects/fitlit/fitlit-optionB/src/images/person-walking-on-path.jpg'
 
 
 import userData from './data/users';
