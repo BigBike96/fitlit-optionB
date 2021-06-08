@@ -63,7 +63,7 @@ main {
       transform: scale(1.05);
       transition-duration: 0.5s;
       box-shadow: 5px 5px 0px 0px #0000003d;
-      animation: spin-like-a-coin 3.5s linear;
+      animation: spin-like-a-coin 2.5s linear;
       animation-direction: alternate-reverse;
       animation-iteration-count: infinite;  
     }
@@ -162,6 +162,11 @@ main {
   span {
     color: $activity-total-color
   }
+}
+
+.historical-list-listItem {
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .number {
