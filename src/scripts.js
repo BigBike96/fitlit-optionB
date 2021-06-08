@@ -93,34 +93,40 @@ function addInfoToSidebar(user, userStorage) {
 }
 
 function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateString) {
-  let data = dataSet.constructor.name.toLowerCase();
-  let todayCard = `${data}TodayCard`
-  let historyCard = `${data}HistoryCard`
-
+  const data = dataSet.constructor.name.toLowerCase();
+  const todayCard = eval(`${data}TodayCard`)
+  const historyCard = eval(`${data}HistoryCard`)
+  let card, action, method1, amount;
+  console.log(todayCard)
   switch (data) {
-  case Hydration: {
-
+  case 'hydration': {
+    card = 'hydration'
+    action = 'drank'
+    method1 = dataSet.calculateDailyOunces(currentUserId, currentDate)
+    amount = 'oz water'
     break;
   }
-  case Sleep:
-    //code block
+  case 'sleep':
+    card = 'sleep'
+    action = 'slept'
+    method1 = dataSet.calculateDailySleep(currentUserId, currentDate)
+    amount = 'hours'
     break;
-  case Activity:
-    //code block
-    break;
-
-  default:
+  case 'activity':
+    card = 'activity'
     break;
   }
+
+
   todayCard.insertAdjacentHTML('afterBegin', `
-  <article class="card sleep-card">
-  <p>You slept</p> 
+  <article class="card ${card}-card">
+  <p>You ${action}</p> 
   <p>
   <span class="number">
-  ${dataSet.calculateDailySleep(currentUserId, currentDate)}
+  ${method1}
   </span>
   </p>  
-  <p>hours today.</p>
+  <p>${amount} today.</p>
 </article>
 <article class="card sleep-card">
   <p>Your sleep quality was</p> 
