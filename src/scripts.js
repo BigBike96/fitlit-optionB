@@ -46,11 +46,11 @@ function startApp(userData, userRepo, hydration, sleep, activity) {
   let currentUserId = currentUser.id
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
-  let winnerNow = makeWinnerID(activity, currentUser, currentDate, userRepo);
+  let winner = findWinner(activity, currentUser, currentDate, userRepo);
   addInfoToSidebar(currentUser, userRepo);
   addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
-  addActivityInfo(currentUser, currentUserId, activity, currentDate, userRepo, winnerNow);
+  addActivityInfo(currentUser, currentUserId, activity, currentDate, userRepo, winner);
   addFriendGameInfo(currentUser, activity, userRepo, currentDate, currentUserId);
 }
 
@@ -71,7 +71,7 @@ function getRandomDate(date) {
   return date[Math.floor(Math.random() * date.length + 1)].date
 }
 
-function makeWinnerID(activityInfo, user, currentDate, userStorage) {
+function findWinner(activityInfo, user, currentDate, userStorage) {
   return activityInfo.getWinnerId(user, currentDate, userStorage)
 }
 
@@ -90,6 +90,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
+  
   let action, activity, amount, average, consumed, consumedAverage, occurrence,
     past, pastStats, present, presentStats, rating, score, week;
   switch (data) {
@@ -155,7 +156,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
 </article>`);
 }
 
-function addActivityInfo(currentUser, currentUserId, activity, currentDate, userStorage, winnerNow) {
+function addActivityInfo(currentUser, currentUserId, activity, currentDate, userStorage, winner) {
   activityTodayCard.insertAdjacentHTML('afterBegin', `<article class="card activity-card">
   <p>Step Count:</p><p>You</p><p><span class="number">${activity.userDataForToday(currentUserId, currentDate, userStorage, 'numSteps')}</span></p>
 </article>
@@ -195,7 +196,7 @@ function addActivityInfo(currentUser, currentUserId, activity, currentDate, user
 <article class="card activity-card">
   <p>Winner's steps this week</p>
   <ul class="card-list" id="bestUserSteps">
-    ${makeStepsHTML(activity.userDataForWeek(winnerNow.id, currentDate, userStorage, "numSteps"))}
+    ${makeStepsHTML(activity.userDataForWeek(winner.id, currentDate, userStorage, "numSteps"))}
   </ul>
 </article>`);
 }
