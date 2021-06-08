@@ -53,7 +53,7 @@ function startApp(userData, userRepo, hydration, sleep, activityData) {
   let currentDate = findCurrentDate(userRepo, currentUser, hydrationData)[0].date;
   let randomDate = getRandomDate(findCurrentDate(userRepo, currentUser, hydrationData));
   addInfoToSidebar(currentUser, userRepo);
-  addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
+  // addInfo(currentUserId, hydration, currentDate, userRepo, randomDate);
   addInfo(currentUserId, sleep, currentDate, userRepo, randomDate);
   // let winnerNow = makeWinnerID(activityRepo, currentUser, today, userRepo);
   // addActivityInfo(currentUser, activityRepo, today, userRepo, randomDate, currentUser, winnerNow);
@@ -96,30 +96,35 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
-  let card, action, method1, amount;
-  console.log(todayCard)
+  let activity, action, occurrence, method1, method2, amount, consumed;
   switch (data) {
   case 'hydration': {
-    card = 'hydration'
+    activity = 'hydration'
     action = 'drank'
     method1 = dataSet.calculateDailyOunces(currentUserId, currentDate)
     amount = 'oz water'
+    consumed = 'average water intake is'
+    method2 = dataSet.calculateAverageOunces(currentUserId)
+    occurrence = 'oz per day.'
     break;
   }
   case 'sleep':
-    card = 'sleep'
+    activity = 'sleep'
     action = 'slept'
     method1 = dataSet.calculateDailySleep(currentUserId, currentDate)
     amount = 'hours'
+    consumed = 'sleep quality was'
+    method2 = dataSet.calculateDailySleepQuality(currentUserId, currentDate)
+    occurrence = 'out of 5.'
     break;
   case 'activity':
-    card = 'activity'
+    activity = 'activity'
     break;
   }
 
 
   todayCard.insertAdjacentHTML('afterBegin', `
-  <article class="card ${card}-card">
+  <article class="card ${activity}-card">
   <p>You ${action}</p> 
   <p>
   <span class="number">
@@ -128,14 +133,14 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, laterDateStri
   </p>  
   <p>${amount} today.</p>
 </article>
-<article class="card sleep-card">
-  <p>Your sleep quality was</p> 
+<article class="card ${activity}-card">
+  <p>Your ${consumed}</p> 
   <p>
   <span class="number">
-  ${dataSet.calculateDailySleepQuality(currentUserId, currentDate)}
+  ${method2}
   </span>
   </p>
-  <p>out of 5.</p>
+  <p>${occurrence}</p>
 </article>
 <article class="card sleep-card">
   <p>The average user's sleep quality is</p> 
@@ -168,7 +173,6 @@ function makeFriendHTML(user, userStorage) {
 }
 
 function makeHydrationHTML(currentUserId, hydrationInfo, userStorage, method) {
-  console.log(method)
   return method.map(drinkData => `<li class="historical-list-listItem">On ${drinkData}oz</li>`).join('');
 }
 
