@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import Activity from '../src/Activity';
-import UserRepo from '../src/User-repo';
-import User from '../src/User';
+import Activity from '../src/classes/Activity';
+import UserRepo from '../src/classes/User-repo';
+import User from '../src/classes/User';
 import testData from './sampleData';
 
 describe.only('Activity', () => {

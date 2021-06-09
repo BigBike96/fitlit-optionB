@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import Hydration from '../src/Hydration';
-import UserRepo from '../src/User-repo';
-import User from '../src/User';
+import Hydration from '../src/classes/Hydration';
+import UserRepo from '../src/classes/User-repo';
+import User from '../src/classes/User';
 import testData from './sampleData';
 
 describe.only('Hydration', () => {

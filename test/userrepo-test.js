@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import  testData  from './sampleData';
-import UserRepo from '../src/User-repo';
-import User from '../src/User';
+import UserRepo from '../src/classes/User-repo';
+import User from '../src/classes/User';
 
 describe('User Repo', () => {
   let user1, user2, user3, user4, user5, users, userRepo, hydrationData, sleepData;

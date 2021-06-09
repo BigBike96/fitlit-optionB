@@ -1,5 +1,5 @@
 import './css/styles.scss';
-import apiCalls from './webAPI';
+import { retrieveData, postData} from './webAPI';
 
 // classes
 import User from './classes/User';
@@ -7,6 +7,9 @@ import Activity from './classes/Activity';
 import Hydration from './classes/Hydration';
 import Sleep from './classes/Sleep';
 import UserRepo from './classes/User-repo';
+
+// import '../src/images/the-rock.jpg';
+// import '../src/images/person-walking-on-path.jpg';
 
 // querySelectors
 const activityHistoryCard = document.querySelector('#activityHistoryCard');
@@ -27,14 +30,15 @@ const userStridelength = document.getElementById('userStridelength');
 // start application
 window.onload = () => {
   let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
-  apiCalls.postData(activity1, 'activity')
+  postData(activity1, 'activity')
   let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
-  apiCalls.postData(sleep1, 'sleep')
+  postData(sleep1, 'sleep')
   let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
-  apiCalls.postData(hydration1, 'hydration')
+  postData(hydration1, 'hydration')
 
-  apiCalls.retrieveData()
+  retrieveData()
     .then((promise) => {
+      console.log(promise);
       let userData = promise[0].userData.map((user) => new User(user))
       let userRepo = new UserRepo(userData)
       let hydrationData = new Hydration(promise[1].hydrationData)
