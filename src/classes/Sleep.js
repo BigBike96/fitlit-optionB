@@ -1,5 +1,6 @@
-import sleepData from './data/sleep';
+import sleepData from '../data/sleep';
 import { averager, finder, findDataByDate } from './util';
+
 
 class Sleep {
   constructor(sleepData) {
