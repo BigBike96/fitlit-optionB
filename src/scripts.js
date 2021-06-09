@@ -1,4 +1,14 @@
-/* eslint-disable max-len */
+// import './css/base.scss';
+// import './css/styles.scss';
+import '/Users/shayangolafshani/Turing/2module/projects/fitlit/fitlit-optionB/src/images/the-rock.jpg';
+import '/Users/shayangolafshani/Turing/2module/projects/fitlit/fitlit-optionB/src/images/person-walking-on-path.jpg'
+
+
+import userData from './data/users';
+import hydrationData from './data/hydration';
+import sleepData from './data/sleep';
+import activityData from './data/activity';
+
 import './css/styles.scss';
 import './images/the-rock.jpg'
 import './images/person-walking-on-path.jpg'

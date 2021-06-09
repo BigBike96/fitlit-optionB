@@ -32,6 +32,7 @@ main {
   align-items: center;
   background-color: $sidebar-background;
   border: $border;
+  border-radius: $curved-corners;
   @include flexed-element(column);
   font-family: $secondary-font;
   font-size: 1.2em;
@@ -40,9 +41,7 @@ main {
   padding: 1%;
   text-align: center;
   width: 25%;
-}
 
-.sidebar {
   h2, h3 {
     border-bottom: $border;
     margin: 0.5em;
@@ -52,10 +51,43 @@ main {
 
   img {
     border-radius: 50%;
-    border: $border;
     height: 200px;
     width: 200px;
     justify-content: center;
+    border: $border-yellow;
+    box-shadow: 0px 0px 9px 3px rgba(196,188,196,1);
+    cursor: pointer;
+    transition: transform 0.5s;
+    
+    &:hover {
+      transform: scale(1.05);
+      transition-duration: 0.5s;
+      box-shadow: 5px 5px 0px 0px #0000003d;
+      animation: spin-like-a-coin 2.5s linear;
+      animation-direction: alternate-reverse;
+      animation-iteration-count: infinite;  
+    }
+    &:active {
+        box-shadow: none;
+        margin-top: 4px;
+        animation-play-state: paused;
+    }
+  }
+}
+@keyframes spin-like-a-coin {
+  from {
+    transform: rotate3d(0, 1, 0, 0 deg);
+    border: $border-yellow;
+    opacity: 1;
+  }
+  50% {
+    border: $border;
+    opacity: 0;
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 180deg);
+    border: $border-yellow;
+    opacity: 1;
   }
 }
 
@@ -70,6 +102,7 @@ main {
 }
 
 .info-card-container {
+  border-radius: $curved-corners;
   width: 100%;
   background-color: $card-background;
   border: $border;
@@ -89,31 +122,51 @@ main {
 }
 
 .card {
+  border-radius: $curved-corners;
   height: auto;
   font-size: 1.25em;
   margin: .5em;
   font-family: $secondary-font;
   @include flexed-element(column);
+  color: black;
   text-align: center;
   padding: 2%;
   width: 80%;
+  transform: all 0.5s ease-in-out;
+  transition: 0.5s;
 
   &:hover {
     transform: scale(1.05);
     transition-duration: 0.5s;
+    box-shadow: 5px 5px 0px 0px #0000003d;
   }
 }
 
 .hydration-card {
   background-color: $hydration-card;
+  span {
+    color: $hydration-total-color;
+  }
 }
 
 .sleep-card {
   background-color: $sleep-card;
+  color:$sleep-text-color;
+  span {
+    color:$sleep-total-color;
+  }
 }
 
 .activity-card {
   background-color: $activity-card;
+  span {
+    color: $activity-total-color
+  }
+}
+
+.historical-list-listItem {
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .number {
@@ -132,19 +185,10 @@ main {
   font-size: 1em;
 }
 
-@media only screen and (max-width: 1330px) {
-  main {
-    align-items: center;
-    @include flexed-element(column);
-  }
-
-  .sidebar {
-    width: 90%;
-  }
+@media only screen and (max-width: $medium-width-breakpoint) {
+  @include query-media($bool: true);
 }
 
-@media only screen and (max-width: 770px) {
-  .column {
-    @include flexed-element(column);
-  }
+@media only screen and (max-width: $small-width-breakpoint) {
+  @include query-media($bool: false);
 }
