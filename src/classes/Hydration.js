@@ -11,7 +11,7 @@ class Hydration {
   }
 
   calculateDailyOunces(id, date) {
-    return finder(this.hydrationData, id, date).numOunces;
+    return (finder(this.hydrationData, id, date).numOunces);
   }
 
   calculateFirstWeekOunces(userRepo, id) {
