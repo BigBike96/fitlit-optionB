@@ -16,3 +16,9 @@ export const finder = (array, id, date) => {
 export const findDataByDate = (date, id, array, userRepo, key) => {
   return userRepo.getWeekFromDate(date, id, array).map((data) => `${data.date}: ${data[key]}`);
 }
+
+// export const calculateHydrationAverageForWeek(id, date, userRepo) {
+//   return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => {
+//     return acc += elem.numOunces;
+//   }, 0) / 7).toFixed(1));
+// }
