@@ -1,13 +1,9 @@
-// import './css/base.scss';
-// import './css/styles.scss';
-import '/Users/shayangolafshani/Turing/2module/projects/fitlit/fitlit-optionB/src/images/the-rock.jpg';
-import '/Users/shayangolafshani/Turing/2module/projects/fitlit/fitlit-optionB/src/images/person-walking-on-path.jpg'
-
-
 import userData from './data/users';
 import hydrationData from './data/hydration';
 import sleepData from './data/sleep';
 import activityData from './data/activity';
+
+// import calculateHydrationAverageForWeek from './classes/util';
 
 import './css/styles.scss';
 import './images/the-rock.jpg'
@@ -37,7 +33,7 @@ const userAddress = document.getElementById('userAddress');
 const userEmail = document.getElementById('userEmail');
 const userStridelength = document.getElementById('userStridelength');
 
-// start application 
+// start application
 window.onload = () => {
   apiCalls.retrieveData()
     .then((promise) => {
@@ -100,7 +96,7 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
   const data = dataSet.constructor.name.toLowerCase();
   const todayCard = eval(`${data}TodayCard`)
   const historyCard = eval(`${data}HistoryCard`)
-  
+
   let action, activity, amount, average, consumed, consumedAverage, occurrence,
     past, pastStats, present, presentStats, rating, score, week;
   switch (data) {
@@ -110,14 +106,14 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
     consumed = dataSet.calculateDailyOunces(currentUserId, currentDate)
     amount = 'oz water'
     average = 'average water intake is'
-    consumedAverage = dataSet.calculateAverageOunces(currentUserId)
+    consumedAverage = dataSet.calculateAverageOunces(currentUserId).toFixed(2)
     occurrence = 'oz per day.'
     past = 'hydrationEarlierWeek'
     pastStats = makeHydrationHTML(dataSet.calculateRandomWeekOunces(randomDate, currentUserId, userStorage))
     present = 'hydrationThisWeek'
     presentStats = makeHydrationHTML(dataSet.calculateFirstWeekOunces(userStorage, currentUserId))
     rating = 'Your average water intake is'
-    score = dataSet.calculateAverageOunces(currentUserId)
+    score = dataSet.calculateAverageOunces(currentUserId).toFixed(2)
     week = 'Water intake this week:'
     break;
   }
@@ -141,17 +137,17 @@ function addInfo(currentUserId, dataSet, currentDate, userStorage, randomDate) {
 
   todayCard.insertAdjacentHTML('afterBegin', `
   <article class="card ${activity}-card">
-  <p>You ${action}</p> 
-  <p><span class="number">${consumed}</span></p>  
+  <p>You ${action}</p>
+  <p><span class="number">${consumed}</span></p>
   <p>${amount} today.</p>
 </article>
 <article class="card ${activity}-card">
-  <p>Your ${average}</p> 
+  <p>Your ${average}</p>
   <p><span class="number">${consumedAverage}</span></p>
   <p>${occurrence}</p>
 </article>
 <article class="card ${activity}-card">
-  <p>${week}</p> 
+  <p>${week}</p>
   <p><span class="number">${score}</span></p>
   <p>${occurrence}</p>
 </article>`);
