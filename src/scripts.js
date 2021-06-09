@@ -1,13 +1,4 @@
-import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
-
-// import calculateHydrationAverageForWeek from './classes/util';
-
 import './css/styles.scss';
-import './images/the-rock.jpg'
-import './images/person-walking-on-path.jpg'
 import apiCalls from './webAPI';
 
 // classes
@@ -15,7 +6,7 @@ import User from './classes/User';
 import Activity from './classes/Activity';
 import Hydration from './classes/Hydration';
 import Sleep from './classes/Sleep';
-import UserRepo from './classes//User-repo';
+import UserRepo from './classes/User-repo';
 
 // querySelectors
 const activityHistoryCard = document.querySelector('#activityHistoryCard');
