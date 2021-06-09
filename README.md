@@ -68,11 +68,19 @@ Open `http://localhost:8080/` in your browser to run the application
 
 ## Demo
 
-Insert gif or link to demo
+
+![demo](https://user-images.githubusercontent.com/17935770/121284582-53b7b800-c89a-11eb-98cb-282b83ca892e.gif)
+
+
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<img width="1424" alt="Screen Shot 2021-06-08 at 6 22 04 PM" src="https://user-images.githubusercontent.com/17935770/121284365-f9b6f280-c899-11eb-8821-49db2f9f2944.png">
+
+
+<img width="1440" alt="Screen Shot 2021-06-08 at 8 37 42 PM" src="https://user-images.githubusercontent.com/17935770/121284359-f7ed2f00-c899-11eb-9e4d-ce7e78e0562e.png">
+
+
 
 ## Roadmap
 
