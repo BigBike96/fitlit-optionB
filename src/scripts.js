@@ -196,7 +196,7 @@ function addActivityInfo(currentUser, currentUserId, activity, currentDate, user
 <article class="card activity-card">
   <p>Winner's steps this week</p>
   <ul class="card-list" id="bestUserSteps">
-    ${makeStepsHTML(activity.userDataForWeek(winner.id, currentDate, userStorage, "numSteps"))}
+    ${makeStepsHTML(activity.userDataForWeek(winner, currentDate, userStorage, "numSteps"))}
   </ul>
 </article>`);
 }
