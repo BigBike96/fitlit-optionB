@@ -1,6 +1,6 @@
 let getData = (endpoint) => fetch(`http://localhost:3001/api/v1/${endpoint}`)
   .then(response => response.json())
-  .catch(err => console.log('error', err));
+  .catch(err => console.log('error1', err));
 
 function retrieveData() {
   return Promise.all([getData('users'), getData('hydration'), getData('sleep'), getData('activity')])
@@ -23,6 +23,4 @@ let postData = (postableData, urlEndpoint) => {
   return Promise.all([sendData(postableData, `http://localhost:3001/api/v1/${urlEndpoint}`)]);
 }
 
-
-
-export default {retrieveData, postData};
+export {retrieveData, postData};
