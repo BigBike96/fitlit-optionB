@@ -1,15 +1,45 @@
 
-$primary-background: #4d4e4f;
-$sidebar-background: #9A9DAB;
-$card-background: #FFFFFF;
-$hydration-card: #5BC8AC;
-$activity-card: #DFE166;
-$sleep-card: #EC96A4;
+$primary-background: #2b2d42ff;
+$sidebar-background: rgb(250, 195, 14);
+$card-background: rgba(251, 255, 228, 0.856);
+$hydration-card: rgba(126, 211, 245, 0.63);
+$activity-card: rgb(238, 1, 238);
+$sleep-card: rgb(124, 106, 109);
+
+$hydration-total-color: white;
+$sleep-text-color:white;
+$sleep-total-color:gold;
+$activity-total-color: rgb(51, 1, 100);
+
 $border: 1px solid #000000;
+$border-yellow: 1px solid #FBD000;
+$curved-corners: 15px; 
+
 $primary-font: 'Open Sans', sans-serif;
 $secondary-font: sans-serif;
+
+$medium-width-breakpoint: 1330px;
+$small-width-breakpoint: 770px;
+
 
 @mixin flexed-element($direction) {
   display: flex;
   flex-direction: $direction;
+}
+
+@mixin query-media($bool) {
+  @if $bool == true {
+    main {
+      align-items: center;
+      @include flexed-element(column);
+    }
+
+    .sidebar {
+      width: 90%;
+    }
+  } @else if $bool == false {
+    .column {
+      @include flexed-element(column);
+    }
+  }
 }
