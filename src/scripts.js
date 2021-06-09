@@ -35,6 +35,13 @@ const userStridelength = document.getElementById('userStridelength');
 
 // start application
 window.onload = () => {
+  let activity1 = {"userID": 7, "date": "Jun/05/2021", "numSteps": 8008, "minutesActive": 350, "flightsOfStairs": 22}
+  apiCalls.postData(activity1, 'activity')
+  let sleep1 = {"userID": 8, "date": "Jun/06/2021", "hoursSlept": 2, "sleepQuality": 2};
+  apiCalls.postData(sleep1, 'sleep')
+  let hydration1 = {"userID": 9, "date": "Jun/07/2021", "numOunces": 88};
+  apiCalls.postData(hydration1, 'hydration')
+
   apiCalls.retrieveData()
     .then((promise) => {
       let userData = promise[0].userData.map((user) => new User(user))
